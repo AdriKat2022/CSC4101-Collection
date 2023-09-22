@@ -21,9 +21,17 @@ A hearthstone card is made from several components :
 - A description (string)
 - A mana cost (integer)
 - A type (spell or minion)   (bool)
-- An attack value (if minion, interger)
-- A HP value (if minion, interger)
+- An attack value (only if minion, interger)
+- A HP value (only if minion, interger)
 - A photo (optionnal) (file_link -> string)
+
+### Names and code names
+
+|Abstract|Use in project|
+|---|---|
+|Object| Hearthstone Card|
+|Inventory| Hearthstone Cardbook|
+|Gallery | Hearthstone Album|
 
 ### Others and miscellaneous
 
@@ -36,7 +44,7 @@ None for now.
 
 - [x] CHOOSE Collection
 - [x] DESIGN the Database
-- [ ] CREATE the project base
+- [x] CREATE the project base
 - [x] GENERATE the detailed todolist
 
 ## Detailed todolist
@@ -44,7 +52,7 @@ None for now.
 | Done | Task number | Description | Importance | Learning TP |
 |---|---|---|---|---|
 |[x] |1  |  prise de connaissance du cahier des charges|  OBLIGATOIRE|  TP 3|
-|[ ] |2 	|initialisation du projet Symfony| 	OBLIGATOIRE|	TP 3|
+|[x] |2 	|initialisation du projet Symfony| 	OBLIGATOIRE|	TP 3|
 |[x] |3 	|gestion du code source avec Git 	|RECOMMANDÉ |	  	 |
 |[ ] |4 	|ajout au modèle des données des entités liées [inventaire] et [objet] minimales<br>4.1 	- entité [inventaire] 	'' 	''<br>4.2 	- entité [objet] 	'' 	''<br>4.3 	- association 1-N entre [inventaire] et [objet] 	'' 	''<br>4.4 	- propriétés non-essentielles des [objets] (optionnel) 	|OPTIONNEL 	| | 
 |[ ] |5 	|ajout de données de tests chargeables avec les fixtures<br>- pour [inventaire]<br>- pour [objet]<br>- … |OBLIGATOIRE 	|TP 3 	 |

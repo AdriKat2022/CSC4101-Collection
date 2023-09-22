@@ -16,7 +16,7 @@ class Hthcard
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -24,6 +24,10 @@ class Hthcard
 
     #[ORM\Column]
     private ?bool $isminion = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cards')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?HearthstoneCardbook $hearthstoneCardbook = null;
 
     public function getId(): ?int
     {
@@ -74,6 +78,18 @@ class Hthcard
     public function setIsminion(bool $isminion): static
     {
         $this->isminion = $isminion;
+
+        return $this;
+    }
+
+    public function getHearthstoneCardbook(): ?HearthstoneCardbook
+    {
+        return $this->hearthstoneCardbook;
+    }
+
+    public function setHearthstoneCardbook(?HearthstoneCardbook $hearthstoneCardbook): static
+    {
+        $this->hearthstoneCardbook = $hearthstoneCardbook;
 
         return $this;
     }
