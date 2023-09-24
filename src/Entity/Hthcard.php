@@ -27,6 +27,7 @@ class Hthcard
 
     #[ORM\ManyToOne(inversedBy: 'cards')]
     #[ORM\JoinColumn(nullable: false)]
+    
     private ?HearthstoneCardbook $hearthstoneCardbook = null;
 
     public function getId(): ?int

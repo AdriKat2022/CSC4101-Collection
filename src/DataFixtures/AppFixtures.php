@@ -6,7 +6,6 @@ use App\Entity\HearthstoneCardbook;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Hthcard;
-use App\Repository\HearthstoneCardbookRepository;
 use Exception;
 
 class AppFixtures extends Fixture
@@ -30,13 +29,13 @@ class AppFixtures extends Fixture
 
 
 
-            $book = $manager->getRepository(HearthstoneCardbook::class)->findByName($bookName);
+            $book = $manager->getRepository(HearthstoneCardbook::class)->findOneByName($bookName);
 
-            if($bookName == null){
+            if($book == null){
                 throw new Exception("Lors de la création des cartes, le livre du nom ". $bookName ." n'a pas été trouvé !");
             }
 
-            $card->setHearthstoneCardbook($book[0]);
+            $card->setHearthstoneCardbook($book);
             
             $manager->persist($card);
         }
@@ -45,13 +44,9 @@ class AppFixtures extends Fixture
     
     private function loadHearthstoneCardBooks(ObjectManager $manager)
     {
-        foreach ($this->getBooksData() as [$name, $cards]) {
+        foreach ($this->getBooksData() as [$name]) {
             $book = new HearthstoneCardbook();
             $book->setName($name);
-
-            foreach($cards as $card){
-                $book->addCard($card); 
-            }
             
             
             $manager->persist($book);
@@ -59,10 +54,18 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
     
+    private function getMembers()
+    {
+        yield ['Malfurion', 'He attacc, he protecc but most importantly, he drips'] ;
+        yield ['Anduin', 'An interesting priest'];
+        yield ['The lich king', 'He really think himself as a king fruit. Don\'t spoil the party'];
+        
+    }
+    
     private function getBooksData()
     {
-        yield ['My wonderful collection', []];
-        yield ['My other collection', []];
+        yield ['My wonderful collection'];
+        yield ['My other collection'];
     }
     
     private function getHthcardsData()

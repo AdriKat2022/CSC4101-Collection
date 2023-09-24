@@ -54,10 +54,10 @@ None for now.
 |[x] |1  |  prise de connaissance du cahier des charges|  OBLIGATOIRE|  TP 3|
 |[x] |2 	|initialisation du projet Symfony| 	OBLIGATOIRE|	TP 3|
 |[x] |3 	|gestion du code source avec Git 	|RECOMMANDÉ |	  	 |
-|[ ] |4 	|ajout au modèle des données des entités liées [inventaire] et [objet] minimales<br>4.1 	- entité [inventaire] 	'' 	''<br>4.2 	- entité [objet] 	'' 	''<br>4.3 	- association 1-N entre [inventaire] et [objet] 	'' 	''<br>4.4 	- propriétés non-essentielles des [objets] (optionnel) 	|OPTIONNEL 	| | 
-|[ ] |5 	|ajout de données de tests chargeables avec les fixtures<br>- pour [inventaire]<br>- pour [objet]<br>- … |OBLIGATOIRE 	|TP 3 	 |
-|[ ] |6 	|ajout d'une interface EasyAdmin dans le back-office avec les 2 contrôleurs CRUD [inventaire] et [objet]<br>- CRUD [inventaire] TP 3/4<br>- CRUD [objet] 	TP 3/4<br>- navigation entre [inventaire] et ses [objets] 	|OPTIONNEL| 	TP 5 	 |
-|[ ] |7 	|ajout de l'entité membre et du lien membre - [inventaire]<br>- ajout de membre au modèle des données<br>- ajout de l'association 1-N entre membre et ses inventaires (optionnellement 1-1) 	  	 |OBLIGATOIRE 	|TP 3/4 	| 
+|[x] |4 	|ajout au modèle des données des entités liées [inventaire] et [objet] minimales<br>4.1 	- entité [inventaire] 	'' 	''<br>4.2 	- entité [objet] 	'' 	''<br>4.3 	- association 1-N entre [inventaire] et [objet] 	'' 	''<br>4.4 	- propriétés non-essentielles des [objets] (optionnel) 	|OPTIONNEL 	| | 
+|[x] |5 	|ajout de données de tests chargeables avec les fixtures<br>- pour [inventaire]<br>- pour [objet]<br>- … |OBLIGATOIRE 	|TP 3 	 |
+|[x] |6 	|ajout d'une interface EasyAdmin dans le back-office avec les 2 contrôleurs CRUD [inventaire] et [objet]<br>- CRUD [inventaire] TP 3/4<br>- CRUD [objet] 	TP 3/4<br>- navigation entre [inventaire] et ses [objets] 	|OPTIONNEL| 	TP 5 	 |
+|[x] |7 	|ajout de l'entité membre et du lien membre - [inventaire]<br>- ajout de membre au modèle des données<br>- ajout de l'association 1-N entre membre et ses inventaires (optionnellement 1-1) 	  	 |OBLIGATOIRE 	|TP 3/4 	| 
 |[ ] |8 	|création des pages du "front-office" de consultation des [inventaires]<br>- consultation de la liste de tous les inventaires (dans un premier temps)<br>- consultation d'une fiche d'[inventaire] à partir de la liste 	|OBLIGATOIRE 	|TP 4 	 |
 |[ ] |9 	|ajout de la navigation entre [inventaire] et [objet] dans le back-office EasyAdmin 	|OPTIONNEL 	|TP 4/5 	 |
 |[ ] |10 	|utilisation de gabarits pour les pages de consultation du front-office<br>- consultation d'un [objet]<br>- consultation de la liste des [objets] d'un [inventaire]<br>- navigation d'un [inventaire] vers la consultation de ses [objets] |OBLIGATOIRE 	|TP 5 |
