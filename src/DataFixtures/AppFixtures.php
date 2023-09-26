@@ -2,23 +2,51 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Hthcard;
 use App\Entity\HearthstoneCardbook;
+use App\Entity\Member;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Hthcard;
 use Exception;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $this->loadMembers($manager);
         $this->loadHearthstoneCardBooks($manager);
         $this->loadHthcards($manager);
         
         $manager->flush();
     }
+
+    private function loadMembers(ObjectManager $manager): void
+    {
+        foreach ($this->getMembers() as [$name,$desc]) {
+            $member = new Member();
+            $member->setNom($name);
+            $member->setDescription($desc);
+            
+            $this->addReference($name,$member);
+
+            $manager->persist($member);
+        }
+        $manager->flush();
+    }
+
+    private function loadHearthstoneCardBooks(ObjectManager $manager): void
+    {
+        foreach ($this->getBooksData() as [$name, $member]) {
+            $book = new HearthstoneCardbook();
+            $book->setName($name);
+            $book->setMember($this->getReference($member));
+            
+            $manager->persist($book);
+        }
+        $manager->flush();
+    }
     
-    private function loadHthcards(ObjectManager $manager)
+    private function loadHthcards(ObjectManager $manager): void
     {
         foreach ($this->getHthcardsData() as [$name, $description, $manacost, $isminion, $bookName]) {
             $card = new Hthcard();
@@ -26,8 +54,6 @@ class AppFixtures extends Fixture
             $card->setDescription($description);
             $card->setManacost($manacost);
             $card->setIsminion($isminion);
-
-
 
             $book = $manager->getRepository(HearthstoneCardbook::class)->findOneByName($bookName);
 
@@ -42,30 +68,21 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
     
-    private function loadHearthstoneCardBooks(ObjectManager $manager)
-    {
-        foreach ($this->getBooksData() as [$name]) {
-            $book = new HearthstoneCardbook();
-            $book->setName($name);
-            
-            
-            $manager->persist($book);
-        }
-        $manager->flush();
-    }
     
     private function getMembers()
     {
         yield ['Malfurion', 'He attacc, he protecc but most importantly, he drips'] ;
         yield ['Anduin', 'An interesting priest'];
         yield ['The lich king', 'He really think himself as a king fruit. Don\'t spoil the party'];
+        yield ['Alice', 'She has a lot of inspiration. She needs an php elephant'];
+        yield ['Adrien', 'He is the kindest person I know and he has a nice car where we can blast music. Great guy.'];
         
     }
     
     private function getBooksData()
     {
-        yield ['My wonderful collection'];
-        yield ['My other collection'];
+        yield ['My wonderful collection', "Malfurion"];
+        yield ['My other collection', "Anduin"];
     }
     
     private function getHthcardsData()

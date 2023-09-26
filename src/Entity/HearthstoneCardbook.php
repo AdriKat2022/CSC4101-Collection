@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Hthcard;
+use App\Entity\Member;
 use App\Repository\HearthstoneCardbookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,11 +17,15 @@ class HearthstoneCardbook
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'hearthstoneCardbook', targetEntity: Hthcard::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'hearthstoneCardbook', targetEntity: Hthcard::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $cards;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hearthstoneCardbooks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?member $member = null;
 
     public function __construct()
     {
@@ -73,6 +79,18 @@ class HearthstoneCardbook
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getMember(): ?member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?member $member): static
+    {
+        $this->member = $member;
 
         return $this;
     }
