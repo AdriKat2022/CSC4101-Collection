@@ -2,17 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HearthstoneCardbook;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use phpDocumentor\Reflection\Types\Boolean;
 
-class HearthstoneCardbookCrudController extends AbstractCrudController
+class MemberCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return HearthstoneCardbook::class;
+        return Member::class;
     }
 
     
@@ -20,11 +23,10 @@ class HearthstoneCardbookCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
-            AssociationField::new('member'),
-            AssociationField::new('cards')
+            TextField::new('nom'),
+            TextField::new('description'),
+            AssociationField::new('hearthstoneCardbooks')
         ];
     }
-    
     
 }

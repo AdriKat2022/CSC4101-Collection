@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\HearthstoneCardbook;
+use App\Repository\HearthstoneCardbookRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,12 @@ class HearthstoneCardbookController extends AbstractController
         $cardbooks = $doctrine->getManager()->getRepository(HearthstoneCardbook::class)->findAll();
 
         foreach($cardbooks as $cardbook) {
-            $htmlpage .= '<li>'. $cardbook->getName() .'</li>';
+
+            $cardbookUrl = $this->generateUrl(
+                'hearthstoneCardbook_show',
+                ['id' => $cardbook->getId()]);
+
+            $htmlpage .= '<li><a href=' . $cardbookUrl . '>'. $cardbook->getName() .'<a/></li>';
         }
         $htmlpage .= '</ul>';
 
@@ -47,21 +53,23 @@ class HearthstoneCardbookController extends AbstractController
      *
      * @param Integer $id (note that the id must be an integer)
      */
-    /*#[Route('/HearthstoneCardbook/{id}', name: 'HearthstoneCardbook_show', requirements: ['id' => '\d+'])]
+    #[Route('/hearthstoneCardbook/{id}', name: 'hearthstoneCardbook_show', requirements: ['id' => '\d+'])]
     public function show(ManagerRegistry $doctrine, $id)
     {
-        $HearthstoneCardbookRepo = $doctrine->getRepository(HearthstoneCardbook::class);
-        $HearthstoneCardbook = $HearthstoneCardbookRepo->find($id);
+        $hearthstoneCardbookRepo = $doctrine->getRepository(HearthstoneCardbook::class);
+        $hearthstoneCardbook = $hearthstoneCardbookRepo->find($id);
 
-        if (!$HearthstoneCardbook) {
+        if (!$hearthstoneCardbook) {
                 throw $this->createNotFoundException('The HearthstoneCardbook does not exist');
         }
+        
+        // On souhaite donc afficher les informations de l'Hearthstone Cardbook
+        $res = "Nom de l'Hearthstone Cardbook : " . $hearthstoneCardbook->getName() . "<br>";
 
-        $res = '...';
-        //...
+        $res .= "<p>Appartient à : " . $hearthstoneCardbook->getMember() . "<br>";
 
-        $res .= '<p/><a href="' . $this->generateUrl('HearthstoneCardbook_index') . '">Back</a>';
+        $res .= '<p/><a href="' . $this->generateUrl('app_hearthstone_cardbook') . '">Back</a>';
 
         return new Response('<html><body>'. $res . '</body></html>');
-    } */
+    }
 }

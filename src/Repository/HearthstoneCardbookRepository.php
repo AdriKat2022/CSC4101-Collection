@@ -53,11 +53,11 @@ class HearthstoneCardbookRepository extends ServiceEntityRepository
     /**
      * Returns the book with the corresponding name
      */
-    public function findById($name): ?HearthstoneCardbook
+    public function findById($id): ?HearthstoneCardbook
     {
         return $this->createQueryBuilder('book')
             ->andWhere('book.id = :val')
-            ->setParameter('val', $name)
+            ->setParameter('val', $id)
             ->getQuery()
             ->getOneOrNullResult()
         ;
