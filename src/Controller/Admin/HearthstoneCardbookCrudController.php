@@ -22,7 +22,7 @@ class HearthstoneCardbookCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             AssociationField::new('member'),
-            AssociationField::new('cards')
+            AssociationField::new('cards')->hideOnForm()
         ];
     }
     
