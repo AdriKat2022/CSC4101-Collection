@@ -60,7 +60,7 @@ None for now.
 |[x] |7 	|ajout de l'entité membre et du lien membre - [inventaire]<br>- ajout de membre au modèle des données<br>- ajout de l'association 1-N entre membre et ses inventaires (optionnellement 1-1) 	  	 |OBLIGATOIRE 	|TP 3/4 	| 
 |[x] |8 	|création des pages du "front-office" de consultation des [inventaires]<br>- consultation de la liste de tous les inventaires (dans un premier temps)<br>- consultation d'une fiche d'[inventaire] à partir de la liste 	|OBLIGATOIRE 	|TP 4 	 |
 |[x] |9 	|ajout de la navigation entre [inventaire] et [objet] dans le back-office EasyAdmin 	|OPTIONNEL 	|TP 4/5 	 |
-|[ ] |10 	|utilisation de gabarits pour les pages de consultation du front-office<br>- consultation d'un [objet]<br>- consultation de la liste des [objets] d'un [inventaire]<br>- navigation d'un [inventaire] vers la consultation de ses [objets] |OBLIGATOIRE 	|TP 5 |
+|[x] |10 	|utilisation de gabarits pour les pages de consultation du front-office<br>- consultation d'un [objet]<br>- consultation de la liste des [objets] d'un [inventaire]<br>- navigation d'un [inventaire] vers la consultation de ses [objets] |OBLIGATOIRE 	|TP 5 |
 |[ ] |11 	|intégration d'une mise en forme CSS avec Bootstrap dans les gabarits Twig| 	OBLIGATOIRE| 	TP 6|
 |[ ] |12 	|intégration de menus de navigation 	|OBLIGATOIRE 	  	| |
 |[ ] |13 	|ajout de l'entité [galerie] au modèle des données et de l'association M-N avec [objet] 	|OBLIGATOIRE| |

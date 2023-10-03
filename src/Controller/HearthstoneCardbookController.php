@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\HearthstoneCardbook;
-use App\Repository\HearthstoneCardbookRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HearthstoneCardbookController extends AbstractController
 {
-    #[Route('/hearthstone/cardbook', name: 'app_hearthstone_cardbook')]
+    #[Route('/hearthstoneCardbook', name: 'app_hearthstone_cardbook')]
     public function index(ManagerRegistry $doctrine): Response
     {
 

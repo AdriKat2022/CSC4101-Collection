@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HearthstoneCardbookController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <h1>{{hearthstone_cardbook}}</h1>
+
+    {% dump {{hearthstone_cardbook}} %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ {{hearthstone_cardbook}}.id }}</td>
+            </tr>
+            <tr>
+            {# ... #}
+            </tr>
+            <tr>
+                <th>[Objets]</th>
+                <td>
+                <ul>
+                {%  for [objet] in {{hearthstone_cardbook}}.[objets] %}
+                <li>
+                {{ [objet] }}
+                </li>
+                {% endfor %} {# {{hearthstone_cardbook}}.[objets] #}
+                </ul> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

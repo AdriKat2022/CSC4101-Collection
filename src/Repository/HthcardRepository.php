@@ -45,4 +45,17 @@ class HthcardRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Returns the card with the corresponding id
+     */
+    public function findById($id): ?Hthcard
+    {
+        return $this->createQueryBuilder('card')
+            ->andWhere('card.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
