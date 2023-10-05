@@ -7,8 +7,8 @@ The main goal is to train my skills with PHP by generating a solid database and 
 
 ## Main specifications
 
-As a web application, this project should include a login system so users can have their own book of cards. A should be owned by a user, but several users can own a same card. We just suppose it exists in as much copies it needs to satisfy everyone.
-Then, they will be able to share a part of their book to create albums for the public, so everyone, included inregistered users, can view them.
+As a web application, this project should include a login system so users can have their own book of cards. A HearthstoneCardbook should be owned by a user, but several users can own a same card. We just suppose it exists in as much copies it needs to satisfy everyone.
+Then, they will be able to share a part of their book to create decks for the public, so everyone, included unregistered users, can view them.
 
 ## Collections used in the project
 
@@ -25,13 +25,22 @@ A hearthstone card is made from several components :
 - A HP value (only if minion, interger)
 - A photo (optionnal) (file_link -> string)
 
-### Names and code names
+### Code names and entities
 
 |Abstract|Use in project|
 |---|---|
 |Object| Hearthstone Card|
 |Inventory| Hearthstone Cardbook|
-|Gallery | Hearthstone Album|
+|Gallery | Hearthstone Deck|
+|Member | Member|
+
+So the differents entities are in order :
+- Member
+- Hearthstone Cardbook (containing all cards of an member)
+- Hearthstone Deck (at the wish of the member, collection of selected cards to share them to the world)
+- Hearthstone Card
+  
+
 
 ### Others and miscellaneous
 
@@ -94,6 +103,11 @@ The front-office is currently working at a minimal state with no CSS, showing :
 
 The back office is fonctionnal and the database can be given new entries without much bugs.
 
+## Help to start the project
+
+- `symfony server:start` to start the server in the root , then connect to [localhost:8000/](localhost:8000/) in your navigator.
+- `symfony console debug:router` to see the available urls that work. I suggest you to begin with `/hearthstoneCardbook`
+
 
 # Links and useful resources
 
@@ -101,5 +115,3 @@ The back office is fonctionnal and the database can be given new entries without
 - [Project specification](https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/cahier-charges-projet.html)
 - [Project recommended checklist](https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/checklist-projet.html)
 
-- `symfony server:start` to start the server in the root , then connect to [localhost:8000/](localhost:8000/) in your navigator.
-- `symfony console debug:router` to see the available urls that work. I suggest you to begin with `/hearthstoneCardbook`
