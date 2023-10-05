@@ -10,10 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HearthstoneCardbookController extends AbstractController
 {
-    #[Route('/hearthstoneCardbook', name: 'app_hearthstone_cardbook')]
+    #[Route('/hearthstoneCardbook', name: 'hearthstone_cardbook')]
     public function index(ManagerRegistry $doctrine): Response
     {
-
+        /*
         $htmlpage = '<!DOCTYPE html>
 <html>
     <head>
@@ -24,9 +24,10 @@ class HearthstoneCardbookController extends AbstractController
         <h1>Liste des Hearthstone Books</h1>
         <p>Voici la collection des différents livres hearthstone :</p>
         <ul>';
-
+        */
         $cardbooks = $doctrine->getManager()->getRepository(HearthstoneCardbook::class)->findAll();
 
+        /*
         foreach($cardbooks as $cardbook) {
 
             $cardbookUrl = $this->generateUrl(
@@ -39,11 +40,17 @@ class HearthstoneCardbookController extends AbstractController
 
         $htmlpage .= '</body></html>';
 
+        /*
         return new Response(
             $htmlpage,
             Response::HTTP_OK,
             array('content-type' => 'text/html')
             );
+            */
+        
+            return $this->render("hearthstone_cardbook/index.html.twig",[
+                'hearthstone_cardbooks' => $cardbooks
+            ]);
     }
 
 
@@ -67,8 +74,13 @@ class HearthstoneCardbookController extends AbstractController
 
         $res .= "<p>Appartient à : " . $hearthstoneCardbook->getMember() . "<br>";
 
-        $res .= '<p/><a href="' . $this->generateUrl('app_hearthstone_cardbook') . '">Back</a>';
+        $res .= '<p/><a href="' . $this->generateUrl('hearthstone_cardbook') . '">Back</a>';
 
-        return new Response('<html><body>'. $res . '</body></html>');
+        //return new Response('<html><body>'. $res . '</body></html>');
+
+        return $this->render("hearthstone_cardbook/show.html.twig",[
+            'hearthstone_cardbook' => $hearthstoneCardbook
+        ]);
+
     }
 }

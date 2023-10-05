@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Card collection!{% endblock %}
+{% block title %}Hello HearthstoneCardbookController!{% endblock %}
 
 {% block body %}
 <style>
@@ -8,13 +8,23 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello! ✅</h1>
+    <h1>{{hthcard.Name}}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/adrikat/CSC4101/CSC4101_Collection/hearthstonetavern/src/Controller/HthcardController.php'|file_link(0) }}">src/Controller/HthcardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/adrikat/CSC4101/CSC4101_Collection/hearthstonetavern/templates/hthcard/index.html.twig'|file_link(0) }}">templates/hthcard/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% if hthcard.Isminion %}
+    Minion
+    {% else %}
+    Spell
+    {% endif %}
+
+    <br>
+
+    <p>Description : {{ hthcard.Description }}</p>
+
+    <p>Manacost : {{ hthcard.Manacost }}</p>
+
+    <p>Origin : {{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</p>
+    
+
+    <p><a href="">Go back (Card list)[link inactive]</a></p>
+
 {% endblock %}

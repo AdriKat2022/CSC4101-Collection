@@ -46,8 +46,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('All Members', 'fas fa-list', Member::class);
-        yield MenuItem::linkToCrud('All Cardbooks', 'fas fa-list', HearthstoneCardbook::class);
+        yield MenuItem::linkToCrud('All Members', 'fas fa-user', Member::class);
+        yield MenuItem::linkToCrud('All Cardbooks', 'fas fa-book', HearthstoneCardbook::class);
         yield MenuItem::linkToCrud('All Cards', 'fas fa-list', Hthcard::class);
     }
 }

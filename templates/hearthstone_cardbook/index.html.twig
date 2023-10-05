@@ -8,13 +8,36 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<h1>Liste des HearthstoneCardbooks</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/adrikat/CSC4101/CSC4101_Collection/hearthstonetavern/src/Controller/HearthstoneCardbookController.php'|file_link(0) }}">src/Controller/HearthstoneCardbookController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/adrikat/CSC4101/CSC4101_Collection/hearthstonetavern/templates/hearthstone_cardbook/index.html.twig'|file_link(0) }}">templates/hearthstone_cardbook/index.html.twig</a></code></li>
-    </ul>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hearthstone_cardbook in hearthstone_cardbooks %}
+        <tr>
+            <td><a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id}) }}">{{hearthstone_cardbook.Id}}</a></td>
+            
+            <td>
+
+            <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id}) }}">{{hearthstone_cardbook.name}}</a>
+
+            </td>
+
+            <td>{{ hearthstone_cardbook.Member }}</td> {# On mettra ici le lien pour accéder au membre lorsque sa page sera créé #}
+        </tr>
+
+        {% endfor %} {# todos #}
+    </tbody>
+
+    <br>
+</table>
+
+<p><a href="">Go back (Members list) [link inactive]</a></p> {# il faudra ajouter le lien de la liste des membres #}
+
 {% endblock %}

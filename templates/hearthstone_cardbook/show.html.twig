@@ -8,32 +8,56 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-    <h1>{{hearthstone_cardbook}}</h1>
+    <h1>{{hearthstone_cardbook.name}}</h1>
 
-    {% dump {{hearthstone_cardbook}} %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ {{hearthstone_cardbook}}.id }}</td>
-            </tr>
-            <tr>
-            {# ... #}
-            </tr>
-            <tr>
-                <th>[Objets]</th>
-                <td>
-                <ul>
-                {%  for [objet] in {{hearthstone_cardbook}}.[objets] %}
-                <li>
-                {{ [objet] }}
-                </li>
-                {% endfor %} {# {{hearthstone_cardbook}}.[objets] #}
-                </ul> 
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+    <p>Deck owner : {{hearthstone_cardbook.member}}<p/>
+    
+    {% if not hearthstone_cardbook.cards is empty %}
+
+        {# Ceci est la version "complète", ou les détails des cartes sont toutes présentées
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Manacost</th>
+                    <th>Card type (1=minion)</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for hthcard in hearthstone_cardbook.cards %}
+                    <tr>
+                        <td><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.id}}</a></td>
+                        
+                        <td>
+
+                        <a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a>
+
+                        </td>
+                        <td>{{ hthcard.Description }}</td>
+                        <td>{{ hthcard.Manacost }}</td>
+                        <td>{{ hthcard.Isminion }}</td>
+                    </tr>
+
+                    {% endfor %}
+                
+            </tbody>
+        </table>
+        #}
+        <ul>
+        {% for hthcard in hearthstone_cardbook.cards %}
+            <li><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a></li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>There are no cards in this deck !</p>
+    {% endif %}
+
+<p><a href="{{ path('hearthstone_cardbook') }} ">Go back (List of HearthstoneCardbooks)</a></p>
 
 {% endblock %}

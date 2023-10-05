@@ -86,8 +86,20 @@ None for now.
 |[ ] |33 	|ajout d'une gestion de marque-pages/panier dans le front-office 	|OPTIONNEL 	|TP 9|
 
 
+## Current Advancement
+
+The front-office is currently working at a minimal state with no CSS, showing :
+- The list of HearthstoneCardbooks (individually clickable)
+- The details of one HearthstoneCardbook (name and owner member) with a back button
+
+The back office is fonctionnal and the database can be given new entries without much bugs.
+
+
 # Links and useful resources
 
 - [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)
 - [Project specification](https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/cahier-charges-projet.html)
 - [Project recommended checklist](https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/checklist-projet.html)
+
+- `symfony server:start` to start the server in the root , then connect to [localhost:8000/](localhost:8000/) in your navigator.
+- `symfony console debug:router` to see the available urls that work. I suggest you to begin with `/hearthstoneCardbook`
