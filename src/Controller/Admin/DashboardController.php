@@ -15,6 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    #[Route('/', name: 'homepage', methods: ['GET'])]
+    public function indexAction(){
+        return $this->render('index.html.twig',
+            [ 'title_text' => "Bienvenue sur la todo liste !!",
+            'subtitle_text' => "N'hésitez pas à rentrer dans ma taverne."]
+        );
+    }
+
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {

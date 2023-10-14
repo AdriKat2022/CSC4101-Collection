@@ -1,0 +1,18 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        lists:
+          label: 'Databases'
+          items:
+            cardbooks:
+              label: 'Hearthstone Cardbooks'
+              route: 'hearthstone_cardbook'
+            members:
+              label: 'Member list (inactive)'
+              route: 'hearthstone_cardbook'
+            fun_divider:
+              is_divider: true
+            useless_option:
+              label: 'Nothing, just showing off my divider'
+              
