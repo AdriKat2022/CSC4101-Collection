@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Member;
 use App\Entity\HearthstoneCardbook;
+use App\Entity\Deck;
 use App\Entity\Hthcard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -58,6 +59,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('All Members', 'fas fa-user', Member::class);
         yield MenuItem::linkToCrud('All Cardbooks', 'fas fa-book', HearthstoneCardbook::class);
+        yield MenuItem::linkToCrud('All Decks', 'fas fa-book', Deck::class);
         yield MenuItem::linkToCrud('All Cards', 'fas fa-list', Hthcard::class);
     }
 }

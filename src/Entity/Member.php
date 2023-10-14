@@ -25,9 +25,13 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: HearthstoneCardbook::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $hearthstoneCardbooks;
 
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Deck::class, orphanRemoval: true)]
+    private Collection $decks;
+
     public function __construct()
     {
         $this->hearthstoneCardbooks = new ArrayCollection();
+        $this->decks = new ArrayCollection();
     }
 
 
@@ -89,6 +93,36 @@ class Member
             // set the owning side to null (unless already changed)
             if ($hearthstoneCardbook->getMember() === $this) {
                 $hearthstoneCardbook->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deck>
+     */
+    public function getDecks(): Collection
+    {
+        return $this->decks;
+    }
+
+    public function addDeck(Deck $deck): static
+    {
+        if (!$this->decks->contains($deck)) {
+            $this->decks->add($deck);
+            $deck->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeck(Deck $deck): static
+    {
+        if ($this->decks->removeElement($deck)) {
+            // set the owning side to null (unless already changed)
+            if ($deck->getMember() === $this) {
+                $deck->setMember(null);
             }
         }
 

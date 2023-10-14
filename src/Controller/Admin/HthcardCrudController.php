@@ -3,6 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Hthcard;
+
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -26,7 +30,19 @@ class HthcardCrudController extends AbstractCrudController
             TextField::new('description'),
             IntegerField::new('manacost'),
             BooleanField::new('isminion'),
-            AssociationField::new('hearthstoneCardbook')
+            AssociationField::new('hearthstoneCardbook'),
+            AssociationField::new('decks')
+            //->onlyOnForms()
+            ->hideOnIndex()
+            ->setTemplatePath('admin/fields/decks.html.twig')
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 }

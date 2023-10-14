@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Hthcard;
+use App\Entity\Deck;
 use App\Entity\HearthstoneCardbook;
 use App\Entity\Member;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,6 +16,7 @@ class AppFixtures extends Fixture
     {
         $this->loadMembers($manager);
         $this->loadHearthstoneCardBooks($manager);
+        $this->loadDecks($manager);
         $this->loadHthcards($manager);
         
         $manager->flush();
@@ -45,17 +47,37 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
     }
+
+    private function loadDecks(ObjectManager $manager): void
+    {
+        foreach ($this->getDecksData() as [$desc, $member, $public]) {
+            $deck = new Deck();
+            $deck->setDescription($desc);
+            $deck->setPublic($public);
+            $deck->setMember($this->getReference($member));
+            
+            $this->addReference($desc,$deck);
+
+
+            $manager->persist($deck);
+        }
+        $manager->flush();
+    }
     
     private function loadHthcards(ObjectManager $manager): void
     {
-        foreach ($this->getHthcardsData() as [$name, $description, $manacost, $isminion, $bookName]) {
+        foreach ($this->getHthcardsData() as [$name, $description, $manacost, $isminion, $bookName, $decks]) {
             $card = new Hthcard();
             $card->setName($name);
             $card->setDescription($description);
             $card->setManacost($manacost);
             $card->setIsminion($isminion);
 
-            $book = $manager->getRepository(HearthstoneCardbook::class)->findOneByName($bookName);
+            foreach($decks as $deck) {
+                $card->addDeck($this->getReference($deck)); // Using REFERENCES for DECKS
+            }
+
+            $book = $manager->getRepository(HearthstoneCardbook::class)->findOneByName($bookName); // NOT USING REFERENCES
 
             if($book == null){
                 throw new Exception("Lors de la création des cartes, le livre du nom ". $bookName ." n'a pas été trouvé !");
@@ -83,13 +105,23 @@ class AppFixtures extends Fixture
     {
         yield ['My wonderful collection', "Malfurion"];
         yield ['My other collection', "Anduin"];
+        yield ['How to battle correctly', "Adrien"];
+    }
+    
+    private function getDecksData()
+    {
+        yield ['Cool deck battle', "Malfurion", false];
+        yield ['Cooler deck battle', "Anduin", false];
+        yield ['Defensive deck', "Adrien", false];
     }
     
     private function getHthcardsData()
     {
-        yield ['Murloc', 'This is an incredible description', 2, true, "My wonderful collection"] ;
-        yield ['Reno', 'A true explorer', 7, true, "My wonderful collection"];
-        yield ['Lord Jaraxxux', 'A real demon', 8,  true, "My wonderful collection"];
+        yield ['Murloc', 'This is an incredible description', 2, true, "My wonderful collection", []] ;
+        yield ['Reno', 'A true explorer', 7, true, "My wonderful collection", []];
+        yield ['Lord Jaraxxux', 'A real demon', 8,  true, "My wonderful collection", ["Cool deck battle"]];
+        yield ['Bloodfen Raptor', 'A cool dinausor', 8,  true, "My other collection", ["Cooler deck battle"]];
+        yield ['Ironfuz Grizzly', 'A terrifying bear', 8,  true, "How to battle correctly", ["Defensive deck"]];
         
     }
     

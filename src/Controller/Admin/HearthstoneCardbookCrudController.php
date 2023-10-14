@@ -29,7 +29,7 @@ class HearthstoneCardbookCrudController extends AbstractCrudController
             AssociationField::new('cards')
             ->hideOnForm()
             ->onlyOnDetail()
-            ->setTemplatePath('admin/fields/cardbooks_hthCard.html.twig')
+            ->setTemplatePath('admin/fields/hthcards.html.twig')
         ];
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HthcardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HthcardRepository::class)]
@@ -29,6 +31,14 @@ class Hthcard
     #[ORM\JoinColumn(nullable: false)]
     
     private ?HearthstoneCardbook $hearthstoneCardbook = null;
+
+    #[ORM\ManyToMany(targetEntity: Deck::class, mappedBy: 'cards')]
+    private Collection $decks;
+
+    public function __construct()
+    {
+        $this->decks = new ArrayCollection();
+    }
 
 
     public function __toString(){
@@ -96,6 +106,33 @@ class Hthcard
     public function setHearthstoneCardbook(?HearthstoneCardbook $hearthstoneCardbook): static
     {
         $this->hearthstoneCardbook = $hearthstoneCardbook;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deck>
+     */
+    public function getDecks(): Collection
+    {
+        return $this->decks;
+    }
+
+    public function addDeck(Deck $deck): static
+    {
+        if (!$this->decks->contains($deck)) {
+            $this->decks->add($deck);
+            $deck->addCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeck(Deck $deck): static
+    {
+        if ($this->decks->removeElement($deck)) {
+            $deck->removeCard($this);
+        }
 
         return $this;
     }
