@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Deck{% endblock %}
+
+{% block body %}
+    <h1>Create a new Hearthstone Cardbook</h1>
+
+    {{ include('hearthstone_cardbook/_form.html.twig') }}
+
+    <a href="{{ path('hearthstone_cardbook') }}">back to list</a>
+{% endblock %}

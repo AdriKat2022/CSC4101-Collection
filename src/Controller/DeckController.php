@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Deck;
+use App\Entity\Hthcard;
 use App\Form\DeckType;
 use App\Repository\DeckRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 #[Route('/deck')]
 class DeckController extends AbstractController
@@ -78,4 +81,27 @@ class DeckController extends AbstractController
 
         return $this->redirectToRoute('app_deck_index', [], Response::HTTP_SEE_OTHER);
     }
+    
+    //#[Route('/{deck_id}/hthcard/{hthcard_id}', name: "app_deck_hthcard_show", methods:["GET"])]
+    /**
+     * @Route("/{deck_id}/hthcard/{hthcard_id}", name="app_deck_hthcard_show", methods={"GET"})
+     * @ParamConverter("deck", options={"id" = "deck_id"})
+     * @ParamConverter("hthcard", options={"id" = "hthcard_id"})
+     */
+    public function hthcardShow(Deck $deck, HthCard $hthcard): Response
+    {
+        if(! $deck->getCards()->contains($hthcard)) {
+            throw $this->createNotFoundException("Couldn't find such a card in this deck!");
+    }
+
+        if(! $deck->isPublic()) {
+                throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+        }
+
+        return $this->render('deck/hthcard_show.html.twig', [
+                'hthcard' => $hthcard,
+                'deck' => $deck
+        ]);
+    }
+
 }

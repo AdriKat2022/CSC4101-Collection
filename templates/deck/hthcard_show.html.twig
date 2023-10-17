@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HearthstoneCardbookController!{% endblock %}
+{# {% block title %}Hello HearthstoneCardbookController!{% endblock %} #}
 
 {% block body %}
-<style>
+{# <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style> #}
 
     <h1>{{hthcard.Name}}</h1>
 
@@ -25,6 +25,6 @@
     <p>Origin : {{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</p>
     
 
-    {# <p><a href="">Go back (Card list)[link inactive]</a></p> #}
+    <a href="{{ path('app_deck_show', { 'id': deck.id}) }}">Back to Deck</a>
 
 {% endblock %}

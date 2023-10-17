@@ -22,10 +22,20 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_deck_index') }}">back to list</a>
+    <h2>Hearthstone Cards</h2>
+    <ul>
+    {% for hthcard in deck.cards %}
+    <li>
+        <a href="{{ path('app_deck_hthcard_show', {'deck_id': deck.id, 'hthcard_id' : hthcard.id}) }}">{{ hthcard }}</a>
+    </li>
+    {% endfor %}
+    </ul>
 
     <a href="{{ path('app_deck_edit', {'id': deck.id}) }}">edit</a>
 
-    {{ include('deck/_delete_form.html.twig') }}
-    
+    {# {{ include('deck/_delete_form.html.twig') }} #}
+
+    <a href="{{ path('app_deck_index') }}">back to list</a>
+
+
 {% endblock %}

@@ -3,13 +3,69 @@
 namespace App\Controller;
 
 use App\Entity\HearthstoneCardbook;
+use App\Form\HearthstoneCardbookType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class HearthstoneCardbookController extends AbstractController
 {
+
+    #[Route('/hearthstonecardbook/new', name: 'app_hearthstoneCardbook_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $hearthstoneCardbook = new HearthstoneCardbook();
+        $form = $this->createForm(HearthstoneCardbookType::class, $hearthstoneCardbook);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($hearthstoneCardbook);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('hearthstone_cardbook', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('hearthstone_cardbook/new.html.twig', [
+            'hearthstoneCardbook' => $hearthstoneCardbook,
+            'form' => $form,
+        ]);
+    }
+
+
+
+    #[Route('/{id}/edit', name: 'app_hearthstoneCardbook_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(HearthstoneCardbookType::class, $hearthstoneCardbook);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_hearthstoneCardbook_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('hearthstone_cardbook/edit.html.twig', [
+            'hearthstoneCardbook' => $hearthstoneCardbook,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_hearthstoneCardbook_delete', methods: ['POST'])]
+    public function delete(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$hearthstoneCardbook->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($hearthstoneCardbook);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('hearthstone_cardbook', [], Response::HTTP_SEE_OTHER);
+    }
+
     #[Route('/hearthstoneCardbook', name: 'hearthstone_cardbook')]
     public function index(ManagerRegistry $doctrine): Response
     {
