@@ -10,13 +10,7 @@
 
     <h1>{{hthcard.Name}}</h1>
 
-    {% if hthcard.Isminion %}
-    Minion
-    {% else %}
-    Spell
-    {% endif %}
-
-    <br>
+    <p>{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</p>
 
     <p>Description : {{ hthcard.Description }}</p>
 

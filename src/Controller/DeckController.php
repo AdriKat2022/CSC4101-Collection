@@ -82,7 +82,7 @@ class DeckController extends AbstractController
         return $this->redirectToRoute('app_deck_index', [], Response::HTTP_SEE_OTHER);
     }
     
-    //#[Route('/{deck_id}/hthcard/{hthcard_id}', name: "app_deck_hthcard_show", methods:["GET"])]
+    
     /**
      * @Route("/{deck_id}/hthcard/{hthcard_id}", name="app_deck_hthcard_show", methods={"GET"})
      * @ParamConverter("deck", options={"id" = "deck_id"})
@@ -92,7 +92,9 @@ class DeckController extends AbstractController
     {
         if(! $deck->getCards()->contains($hthcard)) {
             throw $this->createNotFoundException("Couldn't find such a card in this deck!");
-    }
+        }
+
+        dump($deck,$hthcard);
 
         if(! $deck->isPublic()) {
                 throw $this->createAccessDeniedException("You cannot access the requested ressource!");

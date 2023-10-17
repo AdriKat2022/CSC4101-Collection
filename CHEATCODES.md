@@ -9,3 +9,11 @@
 
 `symfony console make:entity`
 `symfony console doctrine:migrations:migrate`
+
+
+# Erreurs fréquentes :
+
+`App\Entity\Deck object not found by the @ParamConverter annotation`
+OU
+`Cannot autowire ...`
+: Installer (ou réinstaller) `composer require annotation`

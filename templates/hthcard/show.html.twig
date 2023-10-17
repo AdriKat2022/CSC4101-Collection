@@ -10,13 +10,7 @@
 
     <h1>{{hthcard.Name}}</h1>
 
-    {% if hthcard.Isminion %}
-    Minion
-    {% else %}
-    Spell
-    {% endif %}
-
-    <br>
+    <p>{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</p>
 
     <p>Description : {{ hthcard.Description }}</p>
 
@@ -25,6 +19,6 @@
     <p>Origin : {{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</p>
     
 
-    {# <p><a href="">Go back (Card list)[link inactive]</a></p> #}
+    <p><a href="{{ path('hearthstoneCardbook_show', { 'id': hthcard.HearthstoneCardbook.id }) }}">Back to Hearthstone Cardbook</a></p>
 
 {% endblock %}
