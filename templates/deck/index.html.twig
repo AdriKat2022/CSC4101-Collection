@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deck index{% endblock %}
+
+{% block body %}
+    <h1>Deck index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Public</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for deck in decks %}
+            <tr>
+                <td>{{ deck.id }}</td>
+                <td>{{ deck.description }}</td>
+                <td>{{ deck.public ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_deck_show', {'id': deck.id}) }}">show</a>
+                    <a href="{{ path('app_deck_edit', {'id': deck.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_deck_new') }}">Create new</a>
+{% endblock %}
