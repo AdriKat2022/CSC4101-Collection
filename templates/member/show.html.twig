@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Member {{member.nom}}{% endblock %}
+
+
+{% block body %}
+    <p>Owned hearthstone Cardbooks by {{member.nom}}:</p>
+
+    {% for HearthstoneCardbook in member.HearthstoneCardbooks %}
+    <li><a href="{{ path('hearthstoneCardbook_show', {'id' : HearthstoneCardbook.id}) }}">{{ HearthstoneCardbook }}</a></li>
+    {% endfor %}
+{% endblock %}

@@ -93,7 +93,7 @@ class DeckController extends AbstractController
         if(! $deck->getCards()->contains($hthcard)) {
             throw $this->createNotFoundException("Couldn't find such a card in this deck!");
         }
-
+        
         dump($deck,$hthcard);
 
         if(! $deck->isPublic()) {

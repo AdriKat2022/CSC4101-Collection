@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MemberController!{% endblock %}
+
+{% block body %}
+<h1>Liste des membres</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td><a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.Id}}</a></td>
+            
+            <td>
+
+            <a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.nom}}</a>
+
+            </td>
+        </tr>
+
+        {% endfor %} {# todos #}
+    </tbody>
+
+    <br>
+</table>
+
+<a href="{{ path('app_hearthstoneCardbook_new') }}">Create new</a>
+{% endblock %}
