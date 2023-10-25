@@ -5,12 +5,15 @@ bootstrap_menu:
         lists:
           label: 'Databases'
           items:
+            decks:
+              label: 'Decks'
+              route: 'app_deck_index'
             cardbooks:
               label: 'Hearthstone Cardbooks'
               route: 'hearthstone_cardbook'
             members:
-              label: 'Member list (inactive)'
-              route: 'hearthstone_cardbook'
+              label: 'Member list'
+              route: 'app_member'
             fun_divider:
               is_divider: true
             useless_option:

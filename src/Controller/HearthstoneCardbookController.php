@@ -69,32 +69,7 @@ class HearthstoneCardbookController extends AbstractController
     #[Route('/hearthstoneCardbook', name: 'hearthstone_cardbook')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        /*
-        $htmlpage = '<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Taverne du fun</title>
-    </head>
-    <body>
-        <h1>Liste des Hearthstone Books</h1>
-        <p>Voici la collection des différents livres hearthstone :</p>
-        <ul>';
-        */
         $cardbooks = $doctrine->getManager()->getRepository(HearthstoneCardbook::class)->findAll();
-
-        /*
-        foreach($cardbooks as $cardbook) {
-
-            $cardbookUrl = $this->generateUrl(
-                'hearthstoneCardbook_show',
-                ['id' => $cardbook->getId()]);
-
-            $htmlpage .= '<li><a href=' . $cardbookUrl . '>'. $cardbook->getName() .'<a/></li>';
-        }
-        $htmlpage .= '</ul>';
-
-        $htmlpage .= '</body></html>';
 
         /*
         return new Response(
@@ -126,11 +101,11 @@ class HearthstoneCardbookController extends AbstractController
         }
         
         // On souhaite donc afficher les informations de l'Hearthstone Cardbook
-        $res = "Nom de l'Hearthstone Cardbook : " . $hearthstoneCardbook->getName() . "<br>";
+        // $res = "Nom de l'Hearthstone Cardbook : " . $hearthstoneCardbook->getName() . "<br>";
 
-        $res .= "<p>Appartient à : " . $hearthstoneCardbook->getMember() . "<br>";
+        // $res .= "<p>Appartient à : " . $hearthstoneCardbook->getMember() . "<br>";
 
-        $res .= '<p/><a href="' . $this->generateUrl('hearthstone_cardbook') . '">Back</a>';
+        // $res .= '<p/><a href="' . $this->generateUrl('hearthstone_cardbook') . '">Back</a>';
 
         //return new Response('<html><body>'. $res . '</body></html>');
 
