@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\HearthstoneCardbook;
+use App\Entity\Member;
+use App\Repository\HearthstoneCardbookRepository;
 use App\Form\HearthstoneCardbookType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Proxies\__CG__\App\Entity\HearthstoneCardbook as EntityHearthstoneCardbook;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class HearthstoneCardbookController extends AbstractController
 {
 
-    #[Route('/hearthstonecardbook/new', name: 'app_hearthstoneCardbook_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/hearthstoneCardbook/new/{id}', name: 'app_hearthstoneCardbook_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
         $hearthstoneCardbook = new HearthstoneCardbook();
+        $hearthstoneCardbook->setMember($member);
+
         $form = $this->createForm(HearthstoneCardbookType::class, $hearthstoneCardbook);
         $form->handleRequest($request);
 
@@ -26,8 +31,13 @@ class HearthstoneCardbookController extends AbstractController
             $entityManager->persist($hearthstoneCardbook);
             $entityManager->flush();
 
+            $this->addFlash('message',"The Hearthstone Cardbook has been created successfully !");
+
             return $this->redirectToRoute('hearthstone_cardbook', [], Response::HTTP_SEE_OTHER);
         }
+
+        $this->addFlash('error',"Something went wrong while creating the Hearthstone Cardbook.\n Please try again.");
+
 
         return $this->render('hearthstone_cardbook/new.html.twig', [
             'hearthstoneCardbook' => $hearthstoneCardbook,
