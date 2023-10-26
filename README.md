@@ -75,9 +75,9 @@ None for now.
 |[x] |13 	|ajout de l'entité [galerie] au modèle des données et de l'association M-N avec [objet] 	|OBLIGATOIRE| |
 |[x] |14 	|ajout de [galerie] dans le back-office 	|OPTIONNEL 	 | 	 |
 |[x] |15 	|ajout d'un contrôleur CRUD au front-office pour [galerie] 	|OBLIGATOIRE | TP 7|
-|[ ] |16 	|ajout de fonctions CRUD au front-office pour [inventaire] 	|OBLIGATOIRE 	|   	 |
-|[ ] |17 	|ajout de la consultation des [objets] depuis les [galeries] publiques| 	OBLIGATOIRE| |
-|[ ] |18 	|ajout d'un contrôleur CRUD pour Membres 	|OBLIGATOIRE 	|  	 |
+|[x] |16 	|ajout de fonctions CRUD au front-office pour [inventaire] 	|OBLIGATOIRE 	|   	 |
+|[x] |17 	|ajout de la consultation des [objets] depuis les [galeries] publiques| 	OBLIGATOIRE| |
+|[x] |18 	|ajout d'un contrôleur CRUD pour Membres 	|OBLIGATOIRE 	|  	 |
 |[ ] |19 	|consultation de la liste des seuls inventaires d'un membre dans le front-office| 	OBLIGATOIRE| 	|
 |[ ] |20 	|contextualisation de la création d'[inventaire] en fonction du Membre 	|OBLIGATOIRE 	  	 
 |[ ] |21 	|contextualisation de la création d'un [objet] en fonction de l'[inventaire] 	|OBLIGATOIRE |  	 |
