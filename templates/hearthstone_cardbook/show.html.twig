@@ -3,16 +3,10 @@
 {% block title %}Hello HearthstoneCardbookController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
     <h1>{{hearthstone_cardbook.name}}</h1>
 
-
-
-    <p>Deck owner : {{hearthstone_cardbook.member}}<p/>
+    <p>Hearthstone Cardbook owner : {{hearthstone_cardbook.member}}<p/>
     
     {% if not hearthstone_cardbook.cards is empty %}
 
@@ -55,9 +49,11 @@
         </ul>
 
     {% else %}
-        <p>There are no cards in this deck !</p>
+        <p>There are no cards in this Hearthstone CardBook !</p>
     {% endif %}
 
-<p><a href="{{ path('hearthstone_cardbook') }} ">Go back (List of HearthstoneCardbooks)</a></p>
+    <a href="{{ path('app_hthcard_new' , {'id': hearthstone_cardbook.id}) }}"><button class="btn btn-primary">Add a new card</button></a>
+
+<p><a href="{{ path('hearthstone_cardbook', {'id': hearthstone_cardbook.id}) }} "><button class="btn btn-secondary">Go back (List of HearthstoneCardbooks)</button></a></p>
 
 {% endblock %}

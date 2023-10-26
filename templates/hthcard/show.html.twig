@@ -1,12 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HearthstoneCardbookController!{% endblock %}
+{% block title %}Deprecated page{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
     <h1>{{hthcard.Name}}</h1>
 
@@ -19,6 +15,6 @@
     <p>Origin : {{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</p>
     
 
-    <p><a href="{{ path('hearthstoneCardbook_show', { 'id': hthcard.HearthstoneCardbook.id }) }}">Back to Hearthstone Cardbook</a></p>
+    <p><a href="{{ path('hearthstoneCardbook_show', { 'id': hthcard.HearthstoneCardbook.id }) }}"><button class="btn btn-secondary">Back to Hearthstone Cardbook</button></a></p>
 
 {% endblock %}

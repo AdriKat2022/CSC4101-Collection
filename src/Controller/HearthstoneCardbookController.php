@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\HearthstoneCardbook;
 use App\Entity\Member;
+use App\Entity\Hthcard;
 use App\Repository\HearthstoneCardbookRepository;
+use App\Form\HthcardType;
 use App\Form\HearthstoneCardbookType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Proxies\__CG__\App\Entity\HearthstoneCardbook as EntityHearthstoneCardbook;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,37 @@ class HearthstoneCardbookController extends AbstractController
         return $this->render('hearthstone_cardbook/new.html.twig', [
             'hearthstoneCardbook' => $hearthstoneCardbook,
             'form' => $form,
+        ]);
+    }
+    
+    #[Route('/hearthstoneCardbook/hthcard/new/{id}', name: 'app_hthcard_new', methods: ['GET', 'POST'])]
+    public function newCard(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
+    {
+        $hthcard = new Hthcard();
+        $hthcard->setHearthstoneCardbook($hearthstoneCardbook);
+
+        $form = $this->createForm(HthcardType::class, $hthcard);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($hthcard);
+            $entityManager->flush();
+
+            $this->addFlash('message',"The Hearthstone Card has been created successfully !");
+
+            return $this->redirectToRoute('hearthstoneCardbook_show',[
+                'id' => $hearthstoneCardbook->getId()
+            ],
+            Response::HTTP_SEE_OTHER);
+        }
+
+        $this->addFlash('error',"Something went wrong while creating the Hearthstone Card.\n Please try again.");
+
+
+        return $this->render('hthcard/new.html.twig', [
+            'hthcard' => $hthcard,
+            'form' => $form,
+            'hearthstone_cardbook' => $hearthstoneCardbook
         ]);
     }
 
@@ -103,8 +135,7 @@ class HearthstoneCardbookController extends AbstractController
     #[Route('/hearthstoneCardbook/{id}', name: 'hearthstoneCardbook_show', requirements: ['id' => '\d+'])]
     public function show(ManagerRegistry $doctrine, $id)
     {
-        $hearthstoneCardbookRepo = $doctrine->getRepository(HearthstoneCardbook::class);
-        $hearthstoneCardbook = $hearthstoneCardbookRepo->find($id);
+        $hearthstoneCardbook = $doctrine->getRepository(HearthstoneCardbook::class)->find($id);
 
         if (!$hearthstoneCardbook) {
                 throw $this->createNotFoundException('The HearthstoneCardbook does not exist');

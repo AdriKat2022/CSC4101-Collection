@@ -7,7 +7,9 @@
 
     {{ include('deck/_form.html.twig', {'button_label': 'Update'}) }}
 
+    <p>Warning: card selection is currently not possible</p>
+
     {{ include('deck/_delete_form.html.twig') }}
 
-    <a href="{{ path('app_deck_index') }}">back to list</a>
+    <a href="{{ path('app_deck_index') }}"><button class="btn">Back to list</button></a>
 {% endblock %}
