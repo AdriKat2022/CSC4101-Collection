@@ -4,16 +4,38 @@
 
 {% block body %}
 
+    <div class="container">
+
+
     <h1>{{hthcard.Name}}</h1>
 
-    <p>{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</p>
+    <p><strong>{{hthcard.Name}}</strong> specifications and details</p>
 
-    <p>Description : {{ hthcard.Description }}</p>
+        <table class="table">
 
-    <p>Manacost : {{ hthcard.Manacost }}</p>
+            <tbody>
+                <tr>
+                <td>Card type:</td>
+                <td class="table-info">{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</td>
+                </tr>
 
-    <p>Origin : {{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</p>
-    
+                <tr>
+                <td>Description :</td>
+                <td>{{ hthcard.Description }}</td>
+                </tr>
+
+                <tr>
+                <td>Manacost :</td>
+                <td class="table-danger">{{ hthcard.Manacost }}</td>
+                </tr>
+
+                <tr>
+                <td>Origin :</td>
+                <td>{{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a href="{{ path('app_deck_show', { 'id': deck.id }) }}"><button class="btn btn-secondary">Back to Deck</button></a>
 

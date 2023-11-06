@@ -5,6 +5,9 @@
 
 
 {% block body %}
+
+    <h1>{{member.nom}}</h1>
+
     <p>Owned hearthstone Cardbooks by {{member.nom}}:</p>
 
     {% for HearthstoneCardbook in member.HearthstoneCardbooks %}

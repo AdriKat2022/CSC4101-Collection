@@ -5,29 +5,31 @@
 {% block body %}
 <h1>Liste des membres</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for member in members %}
-        <tr>
-            <td><a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.Id}}</a></td>
-            
-            <td>
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td><a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.Id}}</a></td>
+                
+                <td>
 
-            <a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.nom}}</a>
+                <a href="{{ path('app_member_show', {'id': member.id}) }}">{{member.nom}}</a>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        {% endfor %} {# todos #}
-    </tbody>
+            {% endfor %} {# todos #}
+        </tbody>
 
-    <br>
-</table>
+        <br>
+    </table>
+</div>
 
 {% endblock %}

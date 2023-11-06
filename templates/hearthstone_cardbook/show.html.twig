@@ -4,56 +4,66 @@
 
 {% block body %}
 
+    <div class="container">
+
     <h1>{{hearthstone_cardbook.name}}</h1>
 
-    <p>Hearthstone Cardbook owner : {{hearthstone_cardbook.member}}<p/>
-    
-    {% if not hearthstone_cardbook.cards is empty %}
+        <p>Hearthstone Cardbook owner : <strong>{{hearthstone_cardbook.member}}</strong><p/>
+        
+        {% if not hearthstone_cardbook.cards is empty %}
 
-        {# Ceci est la version "complète", ou les détails des cartes sont toutes présentées
+            {# Ceci est la version "complète", ou les détails des cartes sont toutes présentées
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Manacost</th>
-                    <th>Card type (1=minion)</th>
-                </tr>
-            </thead>
-            <tbody>
-                    {% for hthcard in hearthstone_cardbook.cards %}
+            <table class="table">
+                <thead>
                     <tr>
-                        <td><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.id}}</a></td>
-                        
-                        <td>
-
-                        <a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a>
-
-                        </td>
-                        <td>{{ hthcard.Description }}</td>
-                        <td>{{ hthcard.Manacost }}</td>
-                        <td>{{ hthcard.Isminion }}</td>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Manacost</th>
+                        <th>Card type (1=minion)</th>
                     </tr>
+                </thead>
+                <tbody>
+                        {% for hthcard in hearthstone_cardbook.cards %}
+                        <tr>
+                            <td><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.id}}</a></td>
+                            
+                            <td>
 
-                    {% endfor %}
-                
-            </tbody>
-        </table>
-        #}
-        <ul>
-        {% for hthcard in hearthstone_cardbook.cards %}
-            <li><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a></li>
-        {% endfor %}
-        </ul>
+                            <a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a>
 
-    {% else %}
-        <p>There are no cards in this Hearthstone CardBook !</p>
-    {% endif %}
+                            </td>
+                            <td>{{ hthcard.Description }}</td>
+                            <td>{{ hthcard.Manacost }}</td>
+                            <td>{{ hthcard.Isminion }}</td>
+                        </tr>
 
-    <a href="{{ path('app_hthcard_new' , {'id': hearthstone_cardbook.id}) }}"><button class="btn btn-primary">Add a new card</button></a>
+                        {% endfor %}
+                    
+                </tbody>
+            </table>
+            #}
+            <ul class="list-group">
+            {% for hthcard in hearthstone_cardbook.cards %}
+                <li class="list-group-item"><a href="{{ path('hthcard_show', {'id': hthcard.id}) }}">{{hthcard.name}}</a></li>
+            {% endfor %}
+            </ul>
 
-<p><a href="{{ path('hearthstone_cardbook', {'id': hearthstone_cardbook.id}) }} "><button class="btn btn-secondary">Go back (List of HearthstoneCardbooks)</button></a></p>
+        {% else %}
+            <p>There are no cards in this Hearthstone CardBook !</p>
+        {% endif %}
+    </div>
+
+    <div class="container">
+    
+        <div class="btn-group-vertical">
+
+        <a href="{{ path('app_hthcard_new' , {'id': hearthstone_cardbook.id}) }}"><button class="btn btn-primary">Add a new card</button></a>
+
+        <a href="{{ path('hearthstone_cardbook', {'id': hearthstone_cardbook.id}) }} "><button class="btn btn-secondary">Go back (List of HearthstoneCardbooks)</button></a>
+
+        </div>
+    </div>
 
 {% endblock %}
