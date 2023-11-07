@@ -54,6 +54,12 @@ class DeckController extends AbstractController
     #[Route('/{id}', name: 'app_deck_show', methods: ['GET'])]
     public function show(Deck $deck): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $deck->getMember()->getUser()->getUsername());
+
+        if(!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+        }
+
         return $this->render('deck/show.html.twig', [
             'deck' => $deck,
         ]);
@@ -62,6 +68,13 @@ class DeckController extends AbstractController
     #[Route('/{id}/edit', name: 'app_deck_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Deck $deck, EntityManagerInterface $entityManager): Response
     {
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $deck->getMember()->getUser()->getUsername());
+
+        if(!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot modify another member's cardbook !");
+        }
+
         $form = $this->createForm(DeckType::class, $deck);
         $form->handleRequest($request);
 

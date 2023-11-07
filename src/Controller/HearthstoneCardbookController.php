@@ -14,13 +14,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use function PHPUnit\Framework\equalTo;
 
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class HearthstoneCardbookController extends AbstractController
 {
     #[Route('/hearthstoneCardbook/new/{id}', name: 'app_hearthstoneCardbook_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $member->getUser()->getUsername());
+
+        if(! $hasAccess) {
+            throw $this->createAccessDeniedException("You cannot create another member's cardbook !");
+        }
+
         $hearthstoneCardbook = new HearthstoneCardbook();
         $hearthstoneCardbook->setMember($member);
 
@@ -50,6 +60,13 @@ class HearthstoneCardbookController extends AbstractController
     #[Route('/hearthstoneCardbook/hthcard/new/{id}', name: 'app_hthcard_new', methods: ['GET', 'POST'])]
     public function newCard(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
+
+        if(!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+        }
+
         $hthcard = new Hthcard();
         $hthcard->setHearthstoneCardbook($hearthstoneCardbook);
 
@@ -79,10 +96,17 @@ class HearthstoneCardbookController extends AbstractController
     }
 
 
-
+    
     #[Route('/{id}/edit', name: 'app_hearthstoneCardbook_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
+
+        if(!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+        }
+
         $form = $this->createForm(HearthstoneCardbookType::class, $hearthstoneCardbook);
         $form->handleRequest($request);
 
@@ -99,21 +123,31 @@ class HearthstoneCardbookController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_hearthstoneCardbook_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_hearthstoneCardbook_delete', methods: ['POST'], requirements: ['id' => '\d+'])]
     public function delete(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
+
+        $id = $hearthstoneCardbook->getMember()->getId();
+
         if ($this->isCsrfTokenValid('delete'.$hearthstoneCardbook->getId(), $request->request->get('_token'))) {
             $entityManager->remove($hearthstoneCardbook);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_member_show', [ 'id' => $hearthstoneCardbook->getMember()->getId() ], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_member_show', [ 'id' => $id ], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/hearthstoneCardbook', name: 'hearthstone_cardbook')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $cardbooks = $doctrine->getManager()->getRepository(HearthstoneCardbook::class)->findAll();
+
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+
+        if(! $hasAccess) {
+            throw $this->createAccessDeniedException("You must be logged as an ADMIN to see all cardbooks.");
+        }
 
         /*
         return new Response(
@@ -141,6 +175,12 @@ class HearthstoneCardbookController extends AbstractController
 
         if (!$hearthstoneCardbook) {
                 throw $this->createNotFoundException('The HearthstoneCardbook does not exist');
+        }
+        
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
+
+        if(!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
         }
         
         // On souhaite donc afficher les informations de l'Hearthstone Cardbook

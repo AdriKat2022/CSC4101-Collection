@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
+
 {% block title %}Member {{member.nom}}{% endblock %}
 
 
@@ -11,7 +12,9 @@
     </div>
 
     <div class="container mt-5">
-        <p>[Member description]</p>
+        <div class="card bg-default text-dark">
+            <div class="card-body">{{ member.description }}</div>
+        </div>
     </div>
 
 

@@ -70,9 +70,13 @@
 </div>
 
 <div class="container mt-5 text-center">
-    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-trigger="hover focus" data-bs-delay="1000" trigger title="You must be logged in to create a deck !">     
-    <a href="{# {{ path('app_deck_new') }} #}" class="btn btn-success disabled">Create a new deck</a>
-    </span>
+    {% if not app.user %}
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-trigger="hover focus" data-bs-delay="1000" trigger title="You must be logged in to create a deck !">     
+        <a class="btn btn-success disabled">Create a new deck</a>
+        </span>
+    {% else %}
+        <a href="{{ path('app_deck_new' , {'id': app.user.member.id}) }}" class="btn btn-success">Create a new deck</a>
+    {% endif %}
 </div>
 
 

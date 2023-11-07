@@ -5,12 +5,15 @@
 {% block body %}
 
     <div class="container mt-5">
-
         <h1>Create a new Hearthstone Card</h1>
+    </div>
 
+    <div class="container mt-5">
         {{ include('hthcard/_form.html.twig') }}
+    </div>
 
-        <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id} ) }}"><button class="btn btn-secondary">Cancel (back to Hearthstone Cardbook)</button></a>
+    <div class="container mt-5">
+        <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id} ) }}"><button class="btn btn-warning">Cancel</button></a>
     </div>
 
 {% endblock %}

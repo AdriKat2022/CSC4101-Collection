@@ -3,28 +3,40 @@ bootstrap_menu:
     main:
       items:
         decks:
-          label: 'Decks'
+          label: 'Browse decks'
           route: 'app_deck_index'
-        cardbooks:
-          label: 'Hearthstone Cardbooks'
-          route: 'hearthstone_cardbook'
+
+    admin:
+      items:
         members:
           label: 'Member list'
           route: 'app_member'
-        lists:
-          label: 'Databases'
-          items:
-            decks:
-              label: 'Decks'
-              route: 'app_deck_index'
-            cardbooks:
-              label: 'Hearthstone Cardbooks'
-              route: 'hearthstone_cardbook'
-            members:
-              label: 'Member list'
-              route: 'app_member'
-            fun_divider:
-              is_divider: true
-            useless_option:
-              label: 'Nothing, just showing off my divider'
-              
+        cardbooks:
+          label: 'Hearthstone Cardbooks list'
+          route: 'hearthstone_cardbook'
+
+
+    unregistered:
+      items:
+        login:
+          label: 'Login'
+          route: 'app_login'
+
+    registered:
+      items:
+        #members:
+          #label: 'Member list'
+          #route: 'app_member'
+        #lists:
+          #label: 'Profile'
+          #items:
+            #profile:
+              #label: 'Show account'
+              #route: 'app_member_show'
+              #route_parameters:
+                #id: 'app.user.member.id'
+            #divider:
+              #is_divider: true
+            #logout:
+              #label: 'Logout'
+              #route: 'app_logout'

@@ -27,8 +27,9 @@
                 </tr>
             </tbody>
         </table>
-
+        {% if app.user and (is_granted('ROLE_ADMIN') or app.user.member == deck.member) %}
         <a href="{{ path('app_deck_edit', {'id': deck.id}) }}" class="btn btn-warning">Edit deck</a>
+        {% endif %}
     </div>
 
     
