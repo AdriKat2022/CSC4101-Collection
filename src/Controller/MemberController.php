@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-//use App\Entity\Deck;
+
 use App\Entity\Member;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,8 +23,10 @@ class MemberController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_member_show', methods: ['GET'])]
-    public function show(Member $member): Response
+    public function show(ManagerRegistry $doctrine, $id): Response
     {
+        $member = $doctrine->getRepository(Member::class)->find($id);
+
         return $this->render('member/show.html.twig', [
             'member' => $member,
         ]);

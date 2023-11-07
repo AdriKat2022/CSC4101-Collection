@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit cardbook{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <h1>Editing <strong>{{ hearthstone_cardbook.name }}</strong></h1>
+</div>
+
+<div class="container mt-5">
+    {{ include('hearthstone_cardbook/_form.html.twig', {'button_label': 'Update'}) }}
+    <br>
+    {{ include('hearthstone_cardbook/_delete_form.html.twig') }}
+    <p>Warning: card selection is currently not possible</p>
+</div>
+    
+<div class="container mt-5">
+    <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id}) }}"><button class="btn btn-warning">Cancel</button></a>
+</div>
+
+{% endblock %}

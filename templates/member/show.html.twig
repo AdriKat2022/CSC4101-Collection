@@ -6,16 +6,89 @@
 
 {% block body %}
 
-    <h1>{{member.nom}}</h1>
+    <div class="container mt-5">
+        <h1>{{member.nom}}</h1>
+    </div>
 
-    <p>Owned hearthstone Cardbooks by {{member.nom}}:</p>
+    <div class="container mt-5">
+        <p>[Member description]</p>
+    </div>
 
-    {% for HearthstoneCardbook in member.HearthstoneCardbooks %}
-    <li><a href="{{ path('hearthstoneCardbook_show', {'id' : HearthstoneCardbook.id}) }}">{{ HearthstoneCardbook }}</a></li>
-    {% endfor %}
 
-    <br>
+    <div class="container mt-5">
 
-    <a href="{{ path('app_hearthstoneCardbook_new', {'id': member.id}) }}"><button class="btn btn-primary">Add a new Hearthstone Cardbook</button></a>
+        <h5>Owned Hearthstone Cardbooks by <strong>{{member.nom}}</strong>:</h5>
+
+        {% if not member.HearthstoneCardbooks is empty %}
+
+        <br>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for HearthstoneCardbook in member.HearthstoneCardbooks %}
+            <div class="col-sm-3">
+                <div class="card h-100" style="max-width: 540px;">
+                <div class="card-body">
+                    <h4 class="card-title">{{HearthstoneCardbook.name}}</h4>
+                    <p class="card-text">[Hearthstone Cardbook description]</p>
+                    <a href="{{ path('hearthstoneCardbook_show', {'id' : HearthstoneCardbook.id}) }}" class="btn btn-primary">Open cardbook</a>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        {% else %}
+        <div class="mt-4 p-4 bg-warning text-dark rounded">
+            <h1>No cardbooks !</h1>
+            <p><strong>{{member.nom}}</strong> does not have any cardbook... Go ask'em what they're doing !</p> 
+        </div>
+        {% endif %}
+
+        <br>
+        <div class="text-center">
+            <a href="{{ path('app_hearthstoneCardbook_new', {'id': member.id}) }}"><button class="btn btn-success text-center">Add a new Hearthstone Cardbook</button></a>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+
+        <h5>Owned decks by <strong>{{member.nom}}</strong>:</h5>
+
+        {% if not member.decks is empty %}
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for deck in member.decks %}
+            <div class="col-sm-3">
+                <div class="card h-100" style="max-width: 540px;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ deck.description }}</h4>
+                        <p class="card-text">{{ deck.description }}</p>
+                        <a href="{{ path('app_deck_show', {'id' : deck.id}) }}" class="btn btn-primary">Open deck</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        {% else %}
+        <div class="mt-4 p-4 bg-warning text-dark rounded">
+            <h1>No decks !</h1>
+
+            <p><strong>{{member.nom}}</strong> does not have any deck... Go ask'em what they're doing !</p>
+        </div>
+        {% endif %}
+
+        <br>
+
+        <div class="text-center">
+            <a href="{{ path('app_deck_new', {'id': member.id}) }}"><button class="btn btn-success text-center">Build a new deck</button></a>
+        </div>
+
+    </div>
+
+
 
 {% endblock %}

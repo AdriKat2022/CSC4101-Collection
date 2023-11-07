@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Member;
 use App\Entity\Deck;
 use App\Entity\Hthcard;
 use App\Form\DeckType;
@@ -25,10 +26,12 @@ class DeckController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_deck_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_deck_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
         $deck = new Deck();
+        $deck->setMember($member);
+
         $form = $this->createForm(DeckType::class, $deck);
         $form->handleRequest($request);
 
@@ -36,12 +39,13 @@ class DeckController extends AbstractController
             $entityManager->persist($deck);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_deck_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_deck_show', ['id' => $deck->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('deck/new.html.twig', [
             'deck' => $deck,
             'form' => $form,
+            'member' => $member
         ]);
     }
 
@@ -62,12 +66,12 @@ class DeckController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_deck_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_deck_show', ['id' => $deck->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('deck/edit.html.twig', [
             'deck' => $deck,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 
@@ -79,7 +83,7 @@ class DeckController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_deck_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_member_show', [ 'id' => $deck->getMember()->getId() ], Response::HTTP_SEE_OTHER);
     }
     
     
@@ -94,15 +98,13 @@ class DeckController extends AbstractController
             throw $this->createNotFoundException("Couldn't find such a card in this deck!");
         }
         
-        dump($deck,$hthcard);
-
         if(! $deck->isPublic()) {
-                throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+            throw $this->createAccessDeniedException("You cannot access the requested ressource!");
         }
 
         return $this->render('deck/hthcard_show.html.twig', [
-                'hthcard' => $hthcard,
-                'deck' => $deck
+            'deck' => $deck,
+            'hthcard' => $hthcard
         ]);
     }
 

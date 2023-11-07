@@ -2,6 +2,15 @@ bootstrap_menu:
   menus:
     main:
       items:
+        decks:
+          label: 'Decks'
+          route: 'app_deck_index'
+        cardbooks:
+          label: 'Hearthstone Cardbooks'
+          route: 'hearthstone_cardbook'
+        members:
+          label: 'Member list'
+          route: 'app_member'
         lists:
           label: 'Databases'
           items:

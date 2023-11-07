@@ -3,9 +3,13 @@
 {% block title %}Hello MemberController!{% endblock %}
 
 {% block body %}
-<h1>Liste des membres</h1>
 
-<div class="container">
+<div class="container mt-5">
+  <h1>Liste des membres</h1>
+</div>
+
+
+{# <div class="container">
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -25,11 +29,38 @@
                 </td>
             </tr>
 
-            {% endfor %} {# todos #}
+            {% endfor %}
         </tbody>
 
         <br>
     </table>
+</div> #}
+
+{# {% for member in members %}
+<div class="card" style="width:400px">
+  {# <img class="card-img-top" src="img_avatar1.png" alt="Card image"> 
+  <div class="card-body">
+    <h4 class="card-title">{{member.nom}}</h4>
+    <p class="card-text">[Member description]</p>
+    <a href="#" class="btn btn-primary">Show </a>
+  </div>
+</div>
+{% endfor %} #}
+
+<div class="container mt-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for member in members %}
+      <div class="col-sm-3">
+        <div class="card h-100" style="max-width: 540px;">
+          <div class="card-body">
+            <h4 class="card-title">{{member.nom}}</h4>
+            <p class="card-text">[Member description]</p>
+            <a href="{{ path('app_member_show', {'id': member.id, 'member': member}) }}" class="btn btn-primary">Show profile</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

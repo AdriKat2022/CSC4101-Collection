@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HearthstoneCardbookController extends AbstractController
 {
-
     #[Route('/hearthstoneCardbook/new/{id}', name: 'app_hearthstoneCardbook_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
@@ -34,7 +33,7 @@ class HearthstoneCardbookController extends AbstractController
 
             $this->addFlash('message',"The Hearthstone Cardbook has been created successfully !");
 
-            return $this->redirectToRoute('hearthstone_cardbook', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
         }
 
         $this->addFlash('error',"Something went wrong while creating the Hearthstone Cardbook.\n Please try again.");
@@ -43,6 +42,7 @@ class HearthstoneCardbookController extends AbstractController
         return $this->render('hearthstone_cardbook/new.html.twig', [
             'hearthstoneCardbook' => $hearthstoneCardbook,
             'form' => $form,
+            'member' => $member
         ]);
     }
     
@@ -88,12 +88,12 @@ class HearthstoneCardbookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_hearthstoneCardbook_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('hearthstone_cardbook/edit.html.twig', [
-            'hearthstoneCardbook' => $hearthstoneCardbook,
-            'form' => $form,
+            'hearthstone_cardbook' => $hearthstoneCardbook,
+            'form' => $form
         ]);
     }
 
@@ -105,7 +105,7 @@ class HearthstoneCardbookController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('hearthstone_cardbook', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_member_show', [ 'id' => $hearthstoneCardbook->getMember()->getId() ], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/hearthstoneCardbook', name: 'hearthstone_cardbook')]

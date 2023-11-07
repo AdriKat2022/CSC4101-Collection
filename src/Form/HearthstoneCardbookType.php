@@ -16,7 +16,7 @@ class HearthstoneCardbookType extends AbstractType
                 'disabled'   => true,
         ])
             ->add('name')
-            ->add('cards')
+            //->add('cards')
         ;
     }
 

@@ -3,9 +3,14 @@
 {% block title %}New Hearthstone Card{% endblock %}
 
 {% block body %}
-    <h1>Create a new Hearthstone Card</h1>
 
-    {{ include('hthcard/_form.html.twig') }}
+    <div class="container mt-5">
 
-    <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id} ) }}"><button class="btn btn-secondary">Cancel (back to Hearthstone Cardbook)</button></a>
+        <h1>Create a new Hearthstone Card</h1>
+
+        {{ include('hthcard/_form.html.twig') }}
+
+        <a href="{{ path('hearthstoneCardbook_show', {'id': hearthstone_cardbook.id} ) }}"><button class="btn btn-secondary">Cancel (back to Hearthstone Cardbook)</button></a>
+    </div>
+
 {% endblock %}

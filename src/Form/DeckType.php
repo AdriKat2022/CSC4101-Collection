@@ -12,9 +12,11 @@ class DeckType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('member', null, [
+                'disabled'   => true,
+        ])
             ->add('description')
             ->add('public')
-            ->add('member')
             //->add('cards')
         ;
     }

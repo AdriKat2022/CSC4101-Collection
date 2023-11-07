@@ -1,52 +1,130 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ deck.Description }}{% endblock %}
+{% block title %}Deck: {{ deck.Description }}{% endblock %}
 
 {% block body %}
 
-    <h1>{{ deck.description }}</h1>
+    <div class="container mt-5">
 
-    <p>Deck owner : {{deck.member}}<p/>
+        <h1>{{ deck.description }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ deck.id }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ deck.description }}</td>
-            </tr>
-            <tr>
-                <th>Public</th>
-                <td>{{ deck.public ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <p>This is a deck owned by <strong>{{deck.member}}</strong>. Lucky one !<p/>
 
-    <h2>Hearthstone Cards</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ deck.id }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ deck.description }}</td>
+                </tr>
+                <tr>
+                    <th>Public</th>
+                    {# <td class="table-{{ deck.public ? 'success' : 'danger' }}">{{ deck.public ? 'Yes' : 'No' }}</td> #}
+                    {{ deck.public ? '<td class="table-success">Yes</td>' : '<td class="table-danger">No</td>' }} 
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_deck_edit', {'id': deck.id}) }}" class="btn btn-warning">Edit deck</a>
+    </div>
+
     
-    {% if not deck.cards is empty %}
 
-        <ul>
-        {% for hthcard in deck.cards %}
-        <li>
-            <a href="{{ path('app_deck_hthcard_show', {'deck_id': deck.id, 'hthcard_id' : hthcard.id}) }}">{{ hthcard }}</a>
-        </li>
-        {% endfor %}
-        </ul>
+    <div class="container mt-5">
+        {% if not deck.cards is empty %}
 
-    {% else %}
-        <p>There are no cards in this Deck !</p>
-    {% endif %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for card in deck.cards %}
+            <div class="col-sm-3">
+                <div class="card h-100" style="max-width: 540px;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{card.name}}</h4>
+                        <p class="card-text">{{card.description}}</p>
+                        
+                        {# <a href="{{ path('app_deck_hthcard_show', {'deck_id' : deck.id,'hthcard_id' : card.id}) }}" 
+                        {{ deck.public ?
+                        'class="btn btn-primary"'
+                        : 'class="btn btn-primary disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="This card is private and cannot be viewed."'
+                        }}> #}
+
+                        {% if deck.public %}
+                        <a class="btn btn-primary" href="{{ path('app_deck_hthcard_show', {'deck_id' : deck.id,'hthcard_id' : card.id}) }}">
+                            Show details
+                        </a>
+                        {% else %}
+                        <span style="cursor: not-allowed" class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-trigger="hover focus" data-bs-delay="1000" trigger title="This card is private and cannot be viewed !">
+                            <a class="btn btn-primary disabled" href="{{ path('app_deck_hthcard_show', {'deck_id' : deck.id,'hthcard_id' : card.id}) }}">
+                                Cannot show details
+                            </a>
+                        </span>
+                        {% endif %}
+
+                            
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="mt-4 p-4 bg-warning text-dark rounded">
+            <h1>Empty deck !</h1>
+            <p>There are no cards yet in this deck. Just wait a bit longer, maybe some magic card will suddenly pop !</p> 
+        </div>
+        {% endif %}
+
+        <br>
+
+        <div class="container mt-5">
+    
+            <div class="btn-group-horizontal">
+            
+                <span style="cursor: wait" class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Working on this feature !">
+
+                <a href="{{ path('app_hthcard_new' , {'id': deck.id}) }}" class="btn btn-success disabled">Add new card (UNAVAILABLE)</a>
+
+                </span>
+
+                <a href="{{ path('app_member_show', {'id': deck.member.id}) }}" class="btn btn-secondary">Back to member (<strong>{{ deck.member.nom }}</strong>)</a>
+
+                <a href="{{ path('app_deck_index') }}" class="btn btn-secondary">Back to decks</a>
+
+            </div>
+        </div>
+    
+    </div>
+
+    {# OLD VERSION (as list) #}
+
+{# 
+    <div class="container mt-5">
+
+        <h2>Hearthstone Cards</h2>
+        
+        {% if not deck.cards is empty %}
+
+            <ul>
+            {% for hthcard in deck.cards %}
+            <li>
+                <a href="{{ path('app_deck_hthcard_show', {'deck_id': deck.id, 'hthcard_id' : hthcard.id}) }}">{{ hthcard }}</a>
+            </li>
+            {% endfor %}
+            </ul>
+
+        {% else %}
+            <p>There are no cards in this Deck !</p>
+        {% endif %}
 
 
-    <a href="{{ path('app_deck_edit', {'id': deck.id}) }}"><button class="btn btn-primary">Edit deck</button></a>
+        <a href="{{ path('app_deck_edit', {'id': deck.id}) }}"><button class="btn btn-primary">Edit deck</button></a>
 
-    {# {{ include('deck/_delete_form.html.twig') }} #}
+        {{ include('deck/_delete_form.html.twig') }}
 
-    <a href="{{ path('app_deck_index') }}"><button class="btn btn-secondary">Back to list</button></a>
+        <a href="{{ path('app_deck_index') }}"><button class="btn btn-secondary">Back to list</button></a>
 
+    </div> #}
 
 {% endblock %}

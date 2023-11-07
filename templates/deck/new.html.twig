@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Hearthstone Cardbook{% endblock %}
+{% block title %}New Deck !{% endblock %}
 
 {% block body %}
-    <h1>Create a new Hearthstone Cardbook !</h1>
 
-    {{ include('hearthstone_cardbook/_form.html.twig') }}
+    <div class="container mt-5">
+        <h1>Build a new Deck !</h1>
+    </div>
 
-    <a href="{{ path('hearthstone_cardbook') }}"><button class="btn btn-warning">Cancel</button></a>
+    <div class="container mt-5">
+        {{ include('deck/_form.html.twig') }}
+    </div>
+        
+    <div class="container mt-5">
+        <a href="{{ path('app_member_show', {'id': member.id}) }}"><button class="btn btn-warning">Cancel</button></a>
+    </div>
+
 {% endblock %}

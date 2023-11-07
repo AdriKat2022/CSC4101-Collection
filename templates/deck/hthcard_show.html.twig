@@ -4,39 +4,41 @@
 
 {% block body %}
 
-    <div class="container">
+<div class="container mt-5">
 
 
     <h1>{{hthcard.Name}}</h1>
 
     <p><strong>{{hthcard.Name}}</strong> specifications and details</p>
 
-        <table class="table">
+    <table class="table">
 
-            <tbody>
-                <tr>
-                <td>Card type:</td>
-                <td class="table-info">{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</td>
-                </tr>
+        <tbody>
+            <tr>
+            <td>Card type:</td>
+            <td class="table-info">{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</td>
+            </tr>
 
-                <tr>
-                <td>Description :</td>
-                <td>{{ hthcard.Description }}</td>
-                </tr>
+            <tr>
+            <td>Description :</td>
+            <td>{{ hthcard.Description }}</td>
+            </tr>
 
-                <tr>
-                <td>Manacost :</td>
-                <td class="table-danger">{{ hthcard.Manacost }}</td>
-                </tr>
+            <tr>
+            <td>Manacost :</td>
+            <td class="table-danger">{{ hthcard.Manacost }}</td>
+            </tr>
 
-                <tr>
-                <td>Origin :</td>
-                <td>{{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            <tr>
+            <td>Origin :</td>
+            <td>{{ hthcard.HearthstoneCardbook }} by {{ hthcard.HearthstoneCardbook.Member }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="{{ path('app_deck_show', { 'id': deck.id }) }}"><button class="btn btn-secondary">Back to Deck (<strong>{{ deck.description }}</strong>)</button></a>
 
-    <a href="{{ path('app_deck_show', { 'id': deck.id }) }}"><button class="btn btn-secondary">Back to Deck</button></a>
+</div>
+
 
 {% endblock %}
