@@ -25,7 +25,7 @@ class HearthstoneCardbookController extends AbstractController
     public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $member->getUser()->getUsername());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
 
         if(! $hasAccess) {
             throw $this->createAccessDeniedException("You cannot create another member's cardbook !");
@@ -61,7 +61,7 @@ class HearthstoneCardbookController extends AbstractController
     public function newCard(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $hearthstoneCardbook->getMember());
 
         if(!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
@@ -101,7 +101,7 @@ class HearthstoneCardbookController extends AbstractController
     public function edit(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $hearthstoneCardbook->getMember());
 
         if(!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's cardbook !");

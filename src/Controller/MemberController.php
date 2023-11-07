@@ -38,7 +38,7 @@ class MemberController extends AbstractController
     {
         $member = $doctrine->getRepository(Member::class)->find($id);
 
-        $hasAccess = ($this->getUser() != null) && ( $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $member->getUser()->getUsername()) );
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);;
 
         if(!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's profile !");

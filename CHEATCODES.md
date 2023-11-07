@@ -17,3 +17,13 @@
 OU
 `Cannot autowire ...`
 : Installer (ou réinstaller) `composer require annotation`
+
+
+
+# Issues
+
+
+`Cannot assign Symfony\Component\VarDumper\Caster\CutStub to reference held by property App\Entity\Member::$user of type ?App\Entity\User`
+-> this weird error while editing a cardbook or a deck.
+
+- getMember() seems to work (with dump in certain functions) but the IDE refuses to agree.

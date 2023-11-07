@@ -21,6 +21,7 @@ class DeckController extends AbstractController
     #[Route('/', name: 'app_deck_index', methods: ['GET'])]
     public function index(DeckRepository $deckRepository): Response
     {
+
         return $this->render('deck/index.html.twig', [
             //'decks' => $deckRepository->findAll(), // this is to display ONLY public galleries
             'decks' => $deckRepository->findBy([ 'public' => true ]),
@@ -54,7 +55,7 @@ class DeckController extends AbstractController
     #[Route('/{id}', name: 'app_deck_show', methods: ['GET'])]
     public function show(Deck $deck): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $deck->getMember()->getUser()->getUsername());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
 
         if(!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
@@ -68,8 +69,9 @@ class DeckController extends AbstractController
     #[Route('/{id}/edit', name: 'app_deck_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Deck $deck, EntityManagerInterface $entityManager): Response
     {
+        //dump($this->getUser());
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $deck->getMember()->getUser()->getUsername());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
 
         if(!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot modify another member's cardbook !");
