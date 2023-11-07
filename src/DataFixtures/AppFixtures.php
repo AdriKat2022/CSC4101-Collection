@@ -4,14 +4,24 @@ namespace App\DataFixtures;
 
 use App\Entity\Hthcard;
 use App\Entity\Deck;
+use App\Entity\User;
 use App\Entity\HearthstoneCardbook;
 use App\Entity\Member;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Exception;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
+
     public function load(ObjectManager $manager): void
     {
         $this->loadMembers($manager);
@@ -24,8 +34,13 @@ class AppFixtures extends Fixture
 
     private function loadMembers(ObjectManager $manager): void
     {
-        foreach ($this->getMembers() as [$name,$desc]) {
+        foreach ($this->getMembers() as [$name,$desc,$username]) {
+
             $member = new Member();
+            if ($username) {
+                $user = $manager->getRepository(User::class)->findOneByUsername($username);
+                $member->setUser($user);
+            }
             $member->setNom($name);
             $member->setDescription($desc);
             
@@ -93,11 +108,11 @@ class AppFixtures extends Fixture
     
     private function getMembers()
     {
-        yield ['Malfurion', 'He attacc, he protecc but most importantly, he drips'] ;
-        yield ['Anduin', 'An interesting priest'];
-        yield ['The lich king', 'He really think himself as a king fruit. Don\'t spoil the party'];
-        yield ['Alice', 'She has a lot of inspiration. She needs an php elephant'];
-        yield ['Adrien', 'He is the kindest person I know and he has a nice car where we can blast music. Great guy.'];
+        yield ['Malfurion', 'He attacc, he protecc but most importantly, he drips' , 'malfurion'] ;
+        yield ['Anduin', 'An interesting priest' , 'anduin'];
+        yield ['The lich king', 'He really think himself as a king fruit. Don\'t spoil the party', 'the_lich'];
+        yield ['Alice', 'She has a lot of inspiration. She needs an php elephant', 'adrikat'];
+        yield ['Adrien', 'He is the kindest person I know and he has a nice car where we can blast music. Great guy.', 'alice'];
         
     }
     
