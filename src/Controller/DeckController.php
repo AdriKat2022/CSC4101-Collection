@@ -39,7 +39,8 @@ class DeckController extends AbstractController
             $entityManager->persist($deck);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_deck_show', ['id' => $deck->getId()], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('app_deck_show', [ 'id' => $deck->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', [ 'id' => $deck->getMember()->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('deck/new.html.twig', [
@@ -66,7 +67,8 @@ class DeckController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_deck_show', ['id' => $deck->getId()], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('app_deck_show', [ 'id' => $deck->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', [ 'id' => $deck->getMember()->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('deck/edit.html.twig', [

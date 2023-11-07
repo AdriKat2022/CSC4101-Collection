@@ -12,10 +12,21 @@
     {{ include('deck/_form.html.twig', {'button_label': 'Update'}) }}
     <br>
     {{ include('deck/_delete_form.html.twig') }}
-    <p>Warning: card selection is currently not possible</p>
 </div>
     
 <div class="container mt-5">
+    <div class="card bg-warning text-dark">
+        <div class="card-body">Warning: deletion cannot be undone !</div>
+    </div>
+
+    <br>
+
+    <div class="card bg-info text-dark">
+        <div class="card-body">The action to add cards to a deck is currently unavailable. Please retry later.</div>
+    </div>
+
+    <br>
+    
     <a href="{{ path('app_deck_show', {'id': deck.id}) }}"><button class="btn btn-warning">Cancel</button></a>
 </div>
 

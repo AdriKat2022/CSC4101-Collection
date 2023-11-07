@@ -33,7 +33,8 @@ class HearthstoneCardbookController extends AbstractController
 
             $this->addFlash('message',"The Hearthstone Cardbook has been created successfully !");
 
-            return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', [ 'id' => $hearthstoneCardbook->getMember()->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         $this->addFlash('error',"Something went wrong while creating the Hearthstone Cardbook.\n Please try again.");
@@ -88,7 +89,8 @@ class HearthstoneCardbookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('hearthstoneCardbook_show', ['id' => $hearthstoneCardbook->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', [ 'id' => $hearthstoneCardbook->getMember()->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('hearthstone_cardbook/edit.html.twig', [

@@ -67,6 +67,14 @@
                         <p class="card-text">{{ deck.description }}</p>
                         <a href="{{ path('app_deck_show', {'id' : deck.id}) }}" class="btn btn-primary">Open deck</a>
                     </div>
+                    <div class="card-footer">
+                        {% if deck.public %}
+                        <div class="text-success">Published
+                        {% else %}
+                        <div class="text-danger">Private
+                        {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
