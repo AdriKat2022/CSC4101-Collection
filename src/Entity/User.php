@@ -28,6 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Member $member = null;
 
 

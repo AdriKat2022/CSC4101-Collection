@@ -36,11 +36,11 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
 
     private function loadMembers(ObjectManager $manager): void
     {
-        foreach ($this->getMembers() as [$name,$desc,$username]) {
+        foreach ($this->getMembers() as [$name, $desc, $username]) {
 
             $member = new Member();
             if ($username) {
-                $user = $manager->getRepository(User::class)->findOneByUsername($username);
+                $user = $manager->getRepository(User::class)->findOneBy(['username' => $username]);
                 $member->setUser($user);
             }
             $member->setNom($name);

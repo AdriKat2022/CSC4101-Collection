@@ -6,49 +6,65 @@
 
 
 <div class="container mt-5 text-center">
+    <div class="row">
+        <div class="col"></div>
 
-    
+        <div class="col-6">
 
-    <br>
+            <br>
 
-    <h1>Login' to the tavern</h1>
+            <h1>Login' to the tavern</h1>
 
-    <br>
-    
-    <h3>Come on in ! Tell us, what's your name ?</h3>
+            <br>
+            
+            <h3>Come on in ! Tell us, what's your name ?</h3>
 
-    {# {% else %}
+            {# {% else %}
 
-    <h3>Alright bud, just log in to proceed with your action.</h3>
+            <h3>Alright bud, just log in to proceed with your action.</h3>
 
-    {% endif %} #}
+            {% endif %} #}
 
-    <br>
-    
-    {% if error %}
-    <div class="card bg-danger text-white">
-        <div class="card-body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <br>
+            
+            {% if error %}
+            <div class="card bg-danger text-white">
+                <div class="card-body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            </div>
+            <br>
+            {% endif %}
+
+            <form action="{{ path('app_login') }}" method="post">
+                {# <div class="form-outline mb-4">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+                </div>
+                <div class="form-outline mb-4">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password"/>
+                </div> #}
+                {# If you want to control the URL the user is redirected to on success
+                <input type="hidden" name="_target_path" value="/account"/> #}
+
+                {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button type="submit" class="btn btn-primary btn-block mb-4">Validate identity</button> #}
+
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="username" placeholder="Your username pal ?" name="_username" value="{{ last_username }}">
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mt-3 mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="What's the passcode ?" name="_password">
+                    <label for="pwd">Password</label>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col"></div>
     </div>
-    <br>
-    {% endif %}
-
-    <form action="{{ path('app_login') }}" method="post">
-    <div class="form-outline mb-4">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-        </div>
-        <div class="form-outline mb-4">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-        </div>
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"/> #}
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <button type="submit" class="btn btn-primary btn-block mb-4">Validate identity</button>
-    </form>
-    
 </div>
 
 

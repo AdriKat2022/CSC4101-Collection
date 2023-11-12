@@ -29,6 +29,7 @@ class Member
     private Collection $decks;
 
     #[ORM\OneToOne(mappedBy: 'member', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function __construct()
