@@ -33,7 +33,7 @@ class DeckCrudController extends AbstractCrudController
             BooleanField::new('public')
                 ->onlyOnForms(),
 
-            TextField::new('description'),
+            TextField::new('name'),
 
             AssociationField::new('cards')
                 ->onlyOnForms()

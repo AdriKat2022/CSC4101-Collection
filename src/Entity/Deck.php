@@ -16,7 +16,7 @@ class Deck
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private ?string $name = null;
 
     #[ORM\Column]
     private ?bool $public = null;
@@ -34,7 +34,7 @@ class Deck
     }
 
     public function __toString(){
-        return $this->description;
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -42,14 +42,14 @@ class Deck
         return $this->id;
     }
 
-    public function getDescription(): ?string
+    public function getName(): ?string
     {
-        return $this->description;
+        return $this->name;
     }
 
-    public function setDescription(string $description): static
+    public function setName(string $name): static
     {
-        $this->description = $description;
+        $this->name = $name;
 
         return $this;
     }

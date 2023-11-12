@@ -67,13 +67,13 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
 
     private function loadDecks(ObjectManager $manager): void
     {
-        foreach ($this->getDecksData() as [$desc, $member, $public]) {
+        foreach ($this->getDecksData() as [$name, $member, $public]) {
             $deck = new Deck();
-            $deck->setDescription($desc);
+            $deck->setName($name);
             $deck->setPublic($public);
             $deck->setMember($this->getReference($member));
             
-            $this->addReference($desc,$deck);
+            $this->addReference($name,$deck);
 
 
             $manager->persist($deck);

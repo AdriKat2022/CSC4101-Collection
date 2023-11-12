@@ -30,6 +30,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist'])]
     private ?Member $member = null;
 
+
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,10 +116,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->member = $member;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->username;
     }
 }
