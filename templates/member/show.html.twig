@@ -50,8 +50,16 @@
         {% endif %}
 
         <br>
+
         <div class="text-center">
-            <a href="{{ path('app_hearthstoneCardbook_new', {'id': member.id}) }}"><button class="btn btn-success text-center">Add a new Hearthstone Cardbook</button></a>
+            <form action="{{ path('app_hearthstoneCardbook_new', {'id': member.id}) }}"
+            {% if member.HearthstoneCardbooks.count == 1 %}
+            onsubmit="return confirm('You already have an inventory. Do you want to proceed ?');"
+            {% elseif member.HearthstoneCardbooks.count > 1 %}
+            onsubmit="return confirm('You already have severals inventories. Do you want to proceed ?');"
+            {% endif %}>
+                <button class="btn btn-success text-center">Add a new Hearthstone Cardbook</button>
+            </form>
         </div>
     </div>
 

@@ -38,13 +38,13 @@ class DeckCrudController extends AbstractCrudController
             AssociationField::new('cards')
                 ->onlyOnForms()
                 // on ne souhaite pas gérer l'association entre les
-                // [objets] et la Deck dès la crétion de la
+                // [objets] et du deck dès la crétion
                 // Deck
                 ->hideWhenCreating()
                 ->setTemplatePath('admin/fields/hthcard.html.twig')
                 // Ajout possible seulement pour des [objets] qui
                 // appartiennent même propriétaire de l'[inventaire]
-                // que le member de la Deck
+                // que le member du deck
                 ->setQueryBuilder(
                     function (QueryBuilder $queryBuilder) {
                         // récupération de l'instance courante de Deck

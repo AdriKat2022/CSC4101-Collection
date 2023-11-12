@@ -45,7 +45,10 @@
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li><a class="dropdown-item" href="{{ path("app_member_show", {'id': app.user.member.id}) }}">Show profile</a></li>
-                                            <li><hr class="dropdown-divider"></hr></li> 
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                            <li><a class="dropdown-item" href="{{ path("check_admin") }}">Access admin dashboard</a></li>
+                                            {% endif %}
+                                            <li><hr class="dropdown-divider"></hr></li>
                                             <li><a class="dropdown-item" href="{{ path("app_logout") }}">Logout</a></li>
                                         </ul>
                                     </li>

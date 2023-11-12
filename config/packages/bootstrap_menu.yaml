@@ -9,10 +9,10 @@ bootstrap_menu:
     admin:
       items:
         members:
-          label: 'Member list'
+          label: 'Members'
           route: 'app_member'
         cardbooks:
-          label: 'Hearthstone Cardbooks list'
+          label: 'HearthstoneCardbooks'
           route: 'hearthstone_cardbook'
 
 
