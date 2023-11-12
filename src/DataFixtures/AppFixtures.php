@@ -30,6 +30,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $this->loadHthcards($manager);
         
         $manager->flush();
+
+        // test
     }
 
     private function loadMembers(ObjectManager $manager): void
