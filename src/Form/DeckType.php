@@ -22,7 +22,7 @@ class DeckType extends AbstractType
             ->add('member', null, [
                 'disabled'   => true,
         ])
-            ->add('description')
+            ->add('name')
             ->add('public')
             ->add('cards', null, [
                 'query_builder' => function (HthcardRepository $er) use ($member) {
