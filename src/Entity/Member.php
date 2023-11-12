@@ -28,7 +28,7 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Deck::class, orphanRemoval: true)]
     private Collection $decks;
 
-    #[ORM\OneToOne(mappedBy: 'member', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'member', cascade: ['persist'])]
     private ?User $user = null;
 
     public function __construct()

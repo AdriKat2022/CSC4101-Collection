@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{# title block unused #}
+{% block title %}Hello HearthstoneCardbookController!{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+    <h1 style="text-align: center">You can't access this area buddy ! Stay in front of the bar.</h1>
+
+    <p style="text-align: center">{{ error_msg }}</p>
+
+    <p style="text-align: center; color: red;">Error code/message: {{ error_origin }}</p>
+
+    <div class="container mt-5 d-flex justify-content-center">
+        <a href="{{path("app_deck_index")}}"><button class="btn btn-primary">Browse hearthstone decks</button></a>
+    </div>
+
+    <br>
+
+</div>
+
+<img class="img-fluid mx-auto d-block" src="{{ asset('img/error_background.png') }}" >
+
+<img class="img-fluid mx-auto d-block" src="{{ asset('img/home_background_gradient.jpg') }}">
+
+{% endblock %}

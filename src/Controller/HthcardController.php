@@ -70,7 +70,8 @@ class HthcardController extends AbstractController
         $hthcard = $hthcardRepository->find($id);
 
         if (!$hthcard) {
-                throw $this->createNotFoundException('The hthcard specified does not exist');
+            // throw $this->createNotFoundException('The hthcard specified does not exist');
+            return $this->redirectToRoute('error_page', [ 'error_id' => "REQUESTED CONTENT NOT FOUND" ]);
         }
         
         return $this->render('hthcard/show.html.twig',[

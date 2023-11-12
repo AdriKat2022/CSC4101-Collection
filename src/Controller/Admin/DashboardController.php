@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\User;
 use App\Entity\Member;
 use App\Entity\HearthstoneCardbook;
 use App\Entity\Deck;
@@ -20,8 +21,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/', name: 'homepage', methods: ['GET'])]
     public function indexAction(){
         return $this->render('index.html.twig',
-            [ 'title_text' => "Bienvenue sur la todo liste !!",
-            'subtitle_text' => "N'hésitez pas à rentrer dans ma taverne."]
+            []
         );
     }
 
@@ -57,6 +57,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('All Users', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('All Members', 'fas fa-user', Member::class);
         yield MenuItem::linkToCrud('All Cardbooks', 'fas fa-book', HearthstoneCardbook::class);
         yield MenuItem::linkToCrud('All Decks', 'fas fa-book', Deck::class);

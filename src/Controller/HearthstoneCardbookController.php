@@ -25,10 +25,11 @@ class HearthstoneCardbookController extends AbstractController
     public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $member->getUser());
 
         if(! $hasAccess) {
-            throw $this->createAccessDeniedException("You cannot create another member's cardbook !");
+            //throw $this->createAccessDeniedException("You cannot create another member's cardbook !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         $hearthstoneCardbook = new HearthstoneCardbook();
@@ -61,10 +62,11 @@ class HearthstoneCardbookController extends AbstractController
     public function newCard(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $hearthstoneCardbook->getMember());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $hearthstoneCardbook->getMember()->getUser());
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            //throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         $hthcard = new Hthcard();
@@ -101,10 +103,11 @@ class HearthstoneCardbookController extends AbstractController
     public function edit(Request $request, HearthstoneCardbook $hearthstoneCardbook, EntityManagerInterface $entityManager): Response
     {
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $hearthstoneCardbook->getMember());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $hearthstoneCardbook->getMember()->getUser());
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            // throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         $form = $this->createForm(HearthstoneCardbookType::class, $hearthstoneCardbook);
@@ -146,7 +149,8 @@ class HearthstoneCardbookController extends AbstractController
         $hasAccess = $this->isGranted('ROLE_ADMIN');
 
         if(! $hasAccess) {
-            throw $this->createAccessDeniedException("You must be logged as an ADMIN to see all cardbooks.");
+            //throw $this->createAccessDeniedException("You must be logged as an ADMIN to see all cardbooks.");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "ADMIN_ONLY" ]);
         }
 
         /*
@@ -174,13 +178,15 @@ class HearthstoneCardbookController extends AbstractController
         $hearthstoneCardbook = $doctrine->getRepository(HearthstoneCardbook::class)->find($id);
 
         if (!$hearthstoneCardbook) {
-                throw $this->createNotFoundException('The HearthstoneCardbook does not exist');
+            // throw $this->createNotFoundException('The HearthstoneCardbook does not exist');
+            return $this->redirectToRoute('error_page', [ 'error_id' => "REQUESTED CONTENT NOT FOUND" ]);
         }
         
         $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getUserIdentifier() == $hearthstoneCardbook->getMember()->getUser()->getUsername());
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            //throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
         
         // On souhaite donc afficher les informations de l'Hearthstone Cardbook

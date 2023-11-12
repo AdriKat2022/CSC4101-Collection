@@ -1,19 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Login page{% endblock %}
 
 {% block body %}
 
 
 <div class="container mt-5 text-center">
 
+    
+
+    <br>
+
+    <h1>Login' to the tavern</h1>
+
+    <br>
+    
+    <h3>Come on in ! Tell us, what's your name ?</h3>
+
+    {# {% else %}
+
+    <h3>Alright bud, just log in to proceed with your action.</h3>
+
+    {% endif %} #}
+
+    <br>
+    
     {% if error %}
     <div class="card bg-danger text-white">
         <div class="card-body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     </div>
-    {% endif %}
-
     <br>
+    {% endif %}
 
     <form action="{{ path('app_login') }}" method="post">
     <div class="form-outline mb-4">
@@ -29,8 +46,11 @@
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit" class="btn btn-primary btn-block mb-4">login</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4">Validate identity</button>
     </form>
+    
 </div>
+
+
 
 {% endblock %}

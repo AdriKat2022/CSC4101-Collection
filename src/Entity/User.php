@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist'])]
     private ?Member $member = null;
 
     public function getId(): ?int
@@ -110,5 +110,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->member = $member;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

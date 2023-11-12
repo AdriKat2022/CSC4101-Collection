@@ -9,13 +9,17 @@
 
     <h1 style="text-align: center">Welcome to my tavern, enjoy your stay !</h1>
 
-    <p style="text-align: center">Here, you can login to create your own decks from personalised cards, or you can freely watch others decks !
+    <p style="text-align: center">Here, you can login to create your own decks from personalised cards, or you can freely watch others decks !</p>
 
     <br>
 
     <div class="container mt-5 d-flex justify-content-center">
         <a href="{{path("app_deck_index")}}"><button class="btn btn-primary">Browse hearthstone decks</button></a>
     </div>
+
+
 </div>
+
+<img style="max-height: 100%; max-width: 100%;" src="{{ asset('img/home_background_gradient.jpg') }}" class="img-fluid">
 
 {% endblock %}

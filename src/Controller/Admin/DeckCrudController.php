@@ -25,10 +25,14 @@ class DeckCrudController extends AbstractCrudController
     {
         
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')
+                ->hideOnForm(),
+                
             AssociationField::new('member'),
+
             BooleanField::new('public')
                 ->onlyOnForms(),
+
             TextField::new('description'),
 
             AssociationField::new('cards')
@@ -37,7 +41,7 @@ class DeckCrudController extends AbstractCrudController
                 // [objets] et la Deck dès la crétion de la
                 // Deck
                 ->hideWhenCreating()
-                ->setTemplatePath('admin/fields/cardbooks_hthCard.html.twig')
+                ->setTemplatePath('admin/fields/hthcard.html.twig')
                 // Ajout possible seulement pour des [objets] qui
                 // appartiennent même propriétaire de l'[inventaire]
                 // que le member de la Deck
@@ -48,7 +52,7 @@ class DeckCrudController extends AbstractCrudController
                         $member = $currentDeck->getMember();
                         $memberId = $member->getId();
                         // charge les seuls [objets] dont le 'owner' de l'[inventaire] est le member de la galerie
-                        $queryBuilder->leftJoin('entity.hearthstone_cardbook', 'i')
+                        $queryBuilder->leftJoin('entity.hearthstoneCardbook', 'i')
                             ->leftJoin('i.member', 'm')
                             ->andWhere('m.id = :member_id')
                             ->setParameter('member_id', $memberId);    

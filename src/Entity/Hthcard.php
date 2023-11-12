@@ -15,7 +15,7 @@ class Hthcard
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: false)]
@@ -29,7 +29,6 @@ class Hthcard
 
     #[ORM\ManyToOne(inversedBy: 'cards')]
     #[ORM\JoinColumn(nullable: false)]
-    
     private ?HearthstoneCardbook $hearthstoneCardbook = null;
 
     #[ORM\ManyToMany(targetEntity: Deck::class, mappedBy: 'cards')]

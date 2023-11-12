@@ -23,7 +23,7 @@ class UserFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager)
     {
-        foreach ($this->getUserData() as [$username,$plainPassword,$role]) {
+        foreach ($this->getUserData() as [$username, $plainPassword, $role]) {
             $user = new User();
             $password = $this->hasher->hashPassword($user, $plainPassword);
             $user->setUsername($username);
@@ -38,6 +38,8 @@ class UserFixtures extends Fixture
         $manager->flush();
     }
 
+
+
     private function getUserData()
     {
             yield [
@@ -48,6 +50,21 @@ class UserFixtures extends Fixture
             yield [
                     'the_lich',
                     'fruit',
+                    'ROLE_USER'
+            ];
+            yield [
+                    'alice',
+                    'alice',
+                    'ROLE_USER'
+            ];
+            yield [
+                    'anduin',
+                    'anduin',
+                    'ROLE_USER'
+            ];
+            yield [
+                    'malfurion',
+                    'malfurion',
                     'ROLE_USER'
             ];
     }

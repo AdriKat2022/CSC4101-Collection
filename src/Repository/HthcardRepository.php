@@ -49,7 +49,7 @@ class HthcardRepository extends ServiceEntityRepository
     /**
      * Returns the card with the corresponding id
      */
-    public function findById($id): ?Hthcard
+    /* public function findById($id): ?Hthcard
     {
         return $this->createQueryBuilder('card')
             ->andWhere('card.id = :val')
@@ -57,5 +57,5 @@ class HthcardRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
+    } */
 }

@@ -10,6 +10,8 @@
 
         <p>This is a deck owned by <strong>{{deck.member}}</strong>. Lucky one !<p/>
 
+        <p><a href="{{ path('app_member_show', {'id': deck.member.id}) }}" class="btn btn-primary">Show profile of <strong>{{ deck.member.nom }}</strong></a></p>
+
         <table class="table">
             <tbody>
                 <tr>
@@ -88,8 +90,6 @@
                 <a href="{{ path('app_hthcard_new' , {'id': deck.id}) }}" class="btn btn-success disabled">Add new card (UNAVAILABLE)</a>
 
                 </span>
-
-                <a href="{{ path('app_member_show', {'id': deck.member.id}) }}" class="btn btn-secondary">Back to member (<strong>{{ deck.member.nom }}</strong>)</a>
 
                 <a href="{{ path('app_deck_index') }}" class="btn btn-secondary">Back to decks</a>
 

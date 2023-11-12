@@ -31,4 +31,27 @@ class LoginController extends AbstractController
         // throw new \Exception('Don\'t forget to activate logout in security.yaml');
         return new Response();
     }
+
+    #[Route('/error_page/{error_id}', name: 'error_page', methods: ['GET'])]
+    public function error($error_id){
+
+        $error_msg = '';
+
+        switch($error_id){
+            case 'ADMIN_ONLY':
+                $error_msg = "You must be logged in as an admin of the tavern to access this content.";
+                break;
+            case 'OWNER_OR_ADMIN':
+                $error_msg = "You must own this content or be logged in as an admin of the tavern to access this content.";
+                break;
+            default:
+                $error_msg = "A war broke out inside the tavern ! We honestly don't know how it started. What have you done ?";
+        }
+
+        return $this->render('error.html.twig', [
+            'error_msg' => $error_msg,
+            'error_origin' => $error_id
+        ]);
+    }
+
 }

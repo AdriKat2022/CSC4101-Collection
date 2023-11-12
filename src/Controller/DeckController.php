@@ -23,8 +23,8 @@ class DeckController extends AbstractController
     {
 
         return $this->render('deck/index.html.twig', [
-            //'decks' => $deckRepository->findAll(), // this is to display ONLY public galleries
-            'decks' => $deckRepository->findBy([ 'public' => true ]),
+            //'decks' => $deckRepository->findAll(), 
+            'decks' => $deckRepository->findBy([ 'public' => true ]), // this is to display ONLY public galleries
         ]);
     }
 
@@ -55,11 +55,11 @@ class DeckController extends AbstractController
     #[Route('/{id}', name: 'app_deck_show', methods: ['GET'])]
     public function show(Deck $deck): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
+        // $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
 
-        if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
-        }
+        // if(!$hasAccess) {
+        //     throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
+        // }
 
         return $this->render('deck/show.html.twig', [
             'deck' => $deck,
@@ -71,10 +71,11 @@ class DeckController extends AbstractController
     {
         //dump($this->getUser());
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $deck->getMember()->getUser());
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot modify another member's cardbook !");
+            // throw $this->createAccessDeniedException("You cannot modify another member's cardbook !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         $form = $this->createForm(DeckType::class, $deck);
@@ -113,11 +114,13 @@ class DeckController extends AbstractController
     public function hthcardShow(Deck $deck, HthCard $hthcard): Response
     {
         if(! $deck->getCards()->contains($hthcard)) {
-            throw $this->createNotFoundException("Couldn't find such a card in this deck!");
+            //throw $this->createNotFoundException("Couldn't find such a card in this deck!");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "REQUESTED CARD NOT IN PUBLIC DECK" ]);
         }
         
         if(! $deck->isPublic()) {
-            throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+            //throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         return $this->render('deck/hthcard_show.html.twig', [

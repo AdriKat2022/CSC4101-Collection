@@ -23,7 +23,8 @@ class MemberController extends AbstractController
         $hasAccess = $this->isGranted('ROLE_ADMIN');
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You must be logged as an ADMIN to access the list of members.");
+            // throw $this->createAccessDeniedException("You must be logged as an ADMIN to access the list of members.");
+            $this->redirectToRoute('error_page', [ 'error_id' => "ADMIN_ONLY" ]);
         }
 
         $members = $doctrine->getManager()->getRepository(Member::class)->findAll();
@@ -38,10 +39,17 @@ class MemberController extends AbstractController
     {
         $member = $doctrine->getRepository(Member::class)->find($id);
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);;
+        if($member === null){
+            return $this->redirectToRoute('error_page', [ 'error_id' => "UNKNOWN" ]);
+        }
+
+        $hasAccess = ( $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $member->getUser()) );
+
+        //dump($hasAccess);
 
         if(!$hasAccess) {
-            throw $this->createAccessDeniedException("You cannot access another member's profile !");
+            // throw $this->createAccessDeniedException("You cannot access another member's profile !");
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }
 
         return $this->render('member/show.html.twig', [
