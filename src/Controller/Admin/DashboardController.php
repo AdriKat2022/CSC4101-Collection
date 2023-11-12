@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController
     }
 
 
-    #[Route('/admin', name: 'admin')]
+    #[Route('/admimdfldzlbicmpvb-control-check-pass', name: 'admin')]
     public function index(): Response
     {
         // return parent::index();

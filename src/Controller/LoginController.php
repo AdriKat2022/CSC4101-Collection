@@ -5,10 +5,26 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+
+    #[Route('/admin', name: 'check_admin', methods: ['GET'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function checkAdmin(): Response
+    {
+        if(! $this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute("error_page",[
+                "error_id" => "ADMIN_ONLY"
+            ]);
+        }
+        
+        return $this->redirectToRoute("admin");
+    }
+
+
     #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
