@@ -69,9 +69,11 @@ class DeckController extends AbstractController
     #[Route('/{id}/edit', name: 'app_deck_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Deck $deck, EntityManagerInterface $entityManager): Response
     {
-        //dump($this->getUser());
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $deck->getMember()->getUser());
+        $hasAccess =
+            $this->getUser() !== null &&
+            $deck->getMember()->getUser() !== null &&
+            ($this->isGranted('ROLE_ADMIN') || ($this->getUser() == $deck->getMember()->getUser()));
 
         if(!$hasAccess) {
             // throw $this->createAccessDeniedException("You cannot modify another member's cardbook !");
@@ -95,10 +97,20 @@ class DeckController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_deck_delete', methods: ['POST'])]
-    public function delete(Request $request, Deck $deck, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Deck $deck, EntityManagerInterface $entityManager, bool $flush = false): Response
     {
         if ($this->isCsrfTokenValid('delete'.$deck->getId(), $request->request->get('_token'))) {
+            
+            // $hthcardRepository = $entityManager->getRepository(Hthcard::class);
+
+            // $hthcards = $deck->getCards();
+            
+            // foreach($hthcards as $hthcard){
+
+            // }
+
             $entityManager->remove($deck);
+
             $entityManager->flush();
         }
 

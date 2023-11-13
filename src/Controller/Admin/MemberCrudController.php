@@ -22,7 +22,8 @@ class MemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')
+            ->hideOnForm(),
             TextField::new('nom'),
             TextField::new('description'),
             AssociationField::new('hearthstoneCardbooks')
@@ -31,6 +32,7 @@ class MemberCrudController extends AbstractCrudController
             ->setTemplatePath('admin/fields/hearthstonecardbooks.html.twig'),
             AssociationField::new('decks')
             //->onlyOnForms()
+            ->hideOnForm()
             ->hideOnIndex()
             ->setTemplatePath('admin/fields/decks.html.twig'),
             AssociationField::new('user')

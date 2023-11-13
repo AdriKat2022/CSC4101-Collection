@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Hthcard;
 use App\Entity\Deck;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,47 @@ class DeckRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Deck::class);
     }
+
+
+
+    public function remove(Hthcard $hthcard, bool $flush = false): void
+    {
+        $deckRepository = $this->getEntityManager()->getRepository(Deck::class);
+
+        // get rid of the ManyToMany relation with [galeries]
+        $decks = $deckRepository->findCardDeck($hthcard);   
+
+        foreach($decks as $deck) {
+            $deck->removeCard($hthcard);
+            $this->getEntityManager()->persist($deck);
+        }
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+
+        $this->getEntityManager()->remove($hthcard);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * @return Deck[] Returns an array of Deck objects
+     */
+    public function findCardDeck(Hthcard $hthcard): array
+    {
+        return $this->createQueryBuilder('g')
+            ->leftJoin('g.cards', 'o')
+            ->andWhere('o = :hthcard')
+            ->setParameter('hthcard', $hthcard)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 
 //    /**
 //     * @return Deck[] Returns an array of Deck objects

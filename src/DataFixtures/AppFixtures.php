@@ -39,10 +39,13 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         foreach ($this->getMembers() as [$name, $desc, $username]) {
 
             $member = new Member();
+
             if ($username) {
                 $user = $manager->getRepository(User::class)->findOneBy(['username' => $username]);
                 $member->setUser($user);
+                $user->setMember($member);
             }
+            
             $member->setNom($name);
             $member->setDescription($desc);
             

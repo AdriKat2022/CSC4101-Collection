@@ -36,6 +36,23 @@ class HearthstoneCardbookRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function remove(HearthstoneCardbook $entity, bool $flush = false): void
+    {
+        $hthcardRepository = $this->getEntityManager()->getRepository(Hthcard::class);
+
+        // clean the cards properly
+        $hthcards = $entity->getCards();
+
+        foreach($hthcards as $hthcard) {
+            $hthcardRepository->remove($hthcard, $flush);
+        }
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 
     /**
      * Returns the book with the corresponding name

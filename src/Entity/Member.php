@@ -17,6 +17,7 @@ class Member
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
