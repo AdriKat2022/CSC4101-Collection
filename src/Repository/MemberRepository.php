@@ -21,6 +21,32 @@ class MemberRepository extends ServiceEntityRepository
         parent::__construct($registry, Member::class);
     }
 
+
+    public function remove(Member $member, bool $flush = false): void
+    {
+        $user = $member->getUser();
+        
+        if($user){
+            $user->setMember(null);
+            dump("Association deleted");
+        }
+        else{
+            dump("There was no association");
+        }
+
+        $this->getEntityManager()->persist($user);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+
+        $this->getEntityManager()->remove($member);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return Member[] Returns an array of Member objects
 //     */

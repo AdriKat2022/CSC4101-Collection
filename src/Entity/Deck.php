@@ -21,12 +21,10 @@ class Deck
     #[ORM\Column]
     private ?bool $public = null;
 
-    #[ORM\ManyToOne(inversedBy: 'decks')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'decks', targetEntity: Member::class)]
     private ?Member $member = null;
 
-    #[ORM\ManyToMany(targetEntity: Hthcard::class, inversedBy: 'decks')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToMany(inversedBy: 'decks', targetEntity: Hthcard::class)]
     private Collection $cards;
 
     public function __construct()

@@ -27,11 +27,10 @@ class Hthcard
     #[ORM\Column]
     private ?bool $isminion = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cards')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'cards', targetEntity: HearthstoneCardbook::class)]
     private ?HearthstoneCardbook $hearthstoneCardbook = null;
 
-    #[ORM\ManyToMany(targetEntity: Deck::class, mappedBy: 'cards')]
+    #[ORM\ManyToMany(mappedBy: 'cards', targetEntity: Deck::class)]
     private Collection $decks;
 
     public function __construct()

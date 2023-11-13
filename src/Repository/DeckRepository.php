@@ -28,7 +28,7 @@ class DeckRepository extends ServiceEntityRepository
     {
         $deckRepository = $this->getEntityManager()->getRepository(Deck::class);
 
-        // get rid of the ManyToMany relation with [galeries]
+        // get rid of the ManyToMany relation with decks
         $decks = $deckRepository->findCardDeck($hthcard);   
 
         foreach($decks as $deck) {

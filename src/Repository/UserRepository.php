@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -39,6 +40,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+
+    public function remove(User $user, bool $flush = false): void
+    {
+        $member = $user->getMember();
+        
+        if($member){
+            $member->setUser(null);
+            dump("Association deleted");
+        }
+        else{
+            dump("There was no association");
+        }
+
+        $this->getEntityManager()->persist($member);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+
+        $this->getEntityManager()->remove($user);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

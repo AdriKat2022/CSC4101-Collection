@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -11,8 +12,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-// use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-// use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -29,8 +28,8 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnForm(),
             ArrayField::new('roles'),
             TextField::new('username'),
-            // TextField::new('password')
-            //     ->hideOnIndex(),
+            TextField::new('password')
+                ->onlyOnForms(),
             AssociationField::new('member')
         ];
     }

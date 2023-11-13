@@ -17,20 +17,18 @@ class Member
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[ORM\JoinColumn(nullable: false)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: HearthstoneCardbook::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $hearthstoneCardbooks;
 
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Deck::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Deck::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $decks;
 
-    #[ORM\OneToOne(mappedBy: 'member', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\OneToOne(inversedBy: 'member')]
     private ?User $user = null;
 
     public function __construct()
