@@ -10,8 +10,32 @@
 
         <p>Cardbook owner : <strong>{{hearthstone_cardbook.member}}</strong><p/>
         
-        <a href="{{ path('app_hearthstoneCardbook_edit', {'id': hearthstone_cardbook.id}) }}" class="btn btn-warning">Edit cardbook</a>
+        <a href="{{ path('app_member_show', {'id': hearthstone_cardbook.member.id}) }} "><button class="btn btn-primary">Show member (<strong>{{ hearthstone_cardbook.member.nom }}</strong>)</button></a>
 
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Hearthstone Cardbook number</th>
+                    <td>{{ hearthstone_cardbook.id }}</td>
+                </tr>
+                <tr>
+                    <th>Hearthstone Cardbook name</th>
+                    <td>{{ hearthstone_cardbook.name }}</td>
+                </tr>
+                <tr>
+                    <th>Hearthstone Cardbook description</th>
+                    {# <td>{{ hearthstone_cardbook.description }}</td> #}
+                </tr>
+            </tbody>
+        </table>
+        {% if app.user and (is_granted('ROLE_ADMIN') or app.user.member == hearthstone_cardbook.member) %}
+        <a href="{{ path('app_hearthstoneCardbook_edit', {'id': hearthstone_cardbook.id}) }}" class="btn btn-warning">Edit cardbook</a>
+        {% endif %}
+    </div>
+
+    
+
+    <div class="container mt-5">
         {% if not hearthstone_cardbook.cards is empty %}
 
         {# COMPLETE TABLE VERSION (ALL DETAILS INCLUDED) #}
@@ -87,8 +111,6 @@
         <div class="btn-group-horizontal">
 
         <a href="{{ path('app_hthcard_new' , {'id': hearthstone_cardbook.id}) }}"><button class="btn btn-success">Add a new card</button></a>
-
-        <a href="{{ path('app_member_show', {'id': hearthstone_cardbook.member.id}) }} "><button class="btn btn-secondary">Back to member (<strong>{{ hearthstone_cardbook.member.nom }}</strong>)</button></a>
 
         </div>
     </div>

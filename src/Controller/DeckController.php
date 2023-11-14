@@ -29,8 +29,18 @@ class DeckController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_deck_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, Member $member, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, ?Member $member, EntityManagerInterface $entityManager): Response
     {
+        if($member === null){
+            return $this->redirectToRoute('error_page', [ 'error_id' => "PAGE_NOT_FOUND" ]);
+        }
+
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $member->getUser());
+
+        if(!$hasAccess) {
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
+        }
+
         $deck = new Deck();
         $deck->setMember($member);
 
@@ -55,11 +65,11 @@ class DeckController extends AbstractController
     #[Route('/{id}', name: 'app_deck_show', methods: ['GET'])]
     public function show(Deck $deck): Response
     {
-        // $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $deck->getMember());
+        $hasAccess = $deck->isPublic() || $this->isGranted('ROLE_ADMIN') || ($this->getUser() == $deck->getMember()->getUser());
 
-        // if(!$hasAccess) {
-        //     throw $this->createAccessDeniedException("You cannot access another member's cardbook !");
-        // }
+        if(!$hasAccess) {
+            return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
+        }
 
         return $this->render('deck/show.html.twig', [
             'deck' => $deck,

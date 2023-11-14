@@ -10,16 +10,16 @@
 
         <p>This is a deck owned by <strong>{{deck.member}}</strong>. Lucky one !<p/>
 
-        <p><a href="{{ path('app_member_show', {'id': deck.member.id}) }}" class="btn btn-primary">Show profile of <strong>{{ deck.member.nom }}</strong></a></p>
+        <p><a href="{{ path('app_member_show', {'id': deck.member.id}) }}" class="btn btn-primary">Show member (<strong>{{ deck.member.nom }}</strong>)</a></p>
 
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>Deck number</th>
                     <td>{{ deck.id }}</td>
                 </tr>
                 <tr>
-                    <th>Description</th>
+                    <th>Deck name</th>
                     <td>{{ deck.name }}</td>
                 </tr>
                 <tr>
@@ -53,7 +53,7 @@
                         : 'class="btn btn-primary disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="This card is private and cannot be viewed."'
                         }}> #}
 
-                        {% if deck.public %}
+                        {% if deck.public or (app.user and app.user.member == deck.member) %}
                         <a class="btn btn-primary" href="{{ path('app_deck_hthcard_show', {'deck_id' : deck.id,'hthcard_id' : card.id}) }}">
                             Show details
                         </a>
