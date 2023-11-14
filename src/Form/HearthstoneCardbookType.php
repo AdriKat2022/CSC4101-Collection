@@ -12,9 +12,9 @@ class HearthstoneCardbookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('member', null, [
+            /* ->add('member', null, [
                 'disabled'   => true,
-        ])
+        ]) */
             ->add('name')
             //->add('cards')
         ;

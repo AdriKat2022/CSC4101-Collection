@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
@@ -77,6 +78,7 @@ class DeckController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_deck_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Deck $deck, EntityManagerInterface $entityManager): Response
     {
 
@@ -140,7 +142,7 @@ class DeckController extends AbstractController
             return $this->redirectToRoute('error_page', [ 'error_id' => "REQUESTED CARD NOT IN PUBLIC DECK" ]);
         }
         
-        if(! $deck->isPublic()) {
+        if( !( $deck->isPublic() || $this->isGranted('ROLE_ADMIN') ) ) {
             //throw $this->createAccessDeniedException("You cannot access the requested ressource!");
             return $this->redirectToRoute('error_page', [ 'error_id' => "OWNER_OR_ADMIN" ]);
         }

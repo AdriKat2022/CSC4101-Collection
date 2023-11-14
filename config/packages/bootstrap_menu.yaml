@@ -8,12 +8,12 @@ bootstrap_menu:
 
     admin:
       items:
-        members:
-          label: 'Members'
-          route: 'app_member'
         cardbooks:
           label: 'HearthstoneCardbooks'
           route: 'hearthstone_cardbook'
+        members:
+          label: 'Members'
+          route: 'app_member'
 
 
     unregistered:

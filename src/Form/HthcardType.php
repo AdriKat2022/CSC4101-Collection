@@ -11,10 +11,10 @@ class HthcardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
+        $builder/* 
             ->add('hearthstoneCardbook', null, [
                 'disabled'   => true,
-        ])
+        ]) */
             ->add('name')
             ->add('description')
             ->add('manacost')

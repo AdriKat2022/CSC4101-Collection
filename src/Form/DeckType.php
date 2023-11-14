@@ -18,10 +18,10 @@ class DeckType extends AbstractType
         $member = $deck->getMember();
 
 
-        $builder
+        $builder/* 
             ->add('member', null, [
                 'disabled'   => true,
-        ])
+        ]) */
             ->add('name')
             ->add('public')
             ->add('cards', null, [
