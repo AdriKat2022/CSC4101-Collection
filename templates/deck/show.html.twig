@@ -45,6 +45,11 @@
                 <div class="card h-100" style="max-width: 540px;">
                     <div class="card-body">
                         <h4 class="card-title">{{card.name}}</h4>
+                        {% if card.isminion %}
+                        <p class="card-text text-primary">Minion</p>
+                        {% else %}
+                        <p class="card-text text-success">Spell</p>
+                        {% endif %}</p>
                         <img class="card-img-top mt-4" src="{{ asset('img/default_card.png') }}" alt="Default card image" style="width: auto; height: auto; max-width:380px; max-height:200px; display: block; margin: auto">
                         <p class="card-text mt-4">{{card.description}}</p>
                         

@@ -10,6 +10,12 @@ The main goal is to train my skills with PHP by generating a solid database and 
 As a web application, this project should include a login system so users can have their own book of cards. A HearthstoneCardbook should be owned by a user, but several users can own a same card. We just suppose it exists in as much copies it needs to satisfy everyone.
 Then, they will be able to share a part of their book to create decks for the public, so everyone, included unregistered users, can view them.
 
+## Current Advancement
+
+Front office is fully active.
+- Login system is up and any existing member can log in to access their account. From there, members can create hearthstone cardbooks, decks and cards for their account.
+- Anonymous users can still look at public decks from other users and look at theirs associated cards. They can't create decks or any other type of entity.
+
 ## Collections used in the project
 
 The collection that I will display in this project, will be **HEARTHSTONE CARDS**.
@@ -25,36 +31,35 @@ A hearthstone card is made from several components :
 - A HP value (only if minion, interger)
 - A photo (optionnal) (file_link -> string)
 
+
 ### Code names and entities
 
 |Abstract|Use in project|
 |---|---|
 |Object| Hearthstone Card|
 |Inventory| Hearthstone Cardbook|
-|Gallery | Hearthstone Deck|
+|Gallery | Deck|
 |Member | Member|
+|User | User|
 
 So the differents entities are in order :
+- User
 - Member
-- Hearthstone Cardbook (containing all cards of an member)
+- Hearthstone Cardbook (containing all cards of a member)
 - Hearthstone Deck (at the wish of the member, collection of selected cards to share them to the world)
-- Hearthstone Card
-  
+- Hearthstone Card (must be owned by a Hearthstone Cardbook)
 
 
-### Others and miscellaneous
 
-None for now.
+
+## Help to start the project
+
+- `symfony server:start` to start the server in the root file of this project, then connect to [localhost:8000/](localhost:8000/) in your navigator.
+- `symfony console debug:router` to see the available urls that work.
+
 
 
 # TODO
-
-## Main todo
-
-- [x] CHOOSE Collection
-- [x] DESIGN the Database
-- [x] CREATE the project base
-- [x] GENERATE the detailed todolist
 
 ## Detailed todolist
 
@@ -78,35 +83,22 @@ None for now.
 |[x] |16 	|ajout de fonctions CRUD au front-office pour [inventaire] 	|OBLIGATOIRE 	|   	 |
 |[x] |17 	|ajout de la consultation des [objets] depuis les [galeries] publiques| 	OBLIGATOIRE| |
 |[x] |18 	|ajout d'un contrôleur CRUD pour Membres 	|OBLIGATOIRE 	|  	 |
-|[ ] |19 	|consultation de la liste des seuls inventaires d'un membre dans le front-office| 	OBLIGATOIRE| 	|
-|[ ] |20 	|contextualisation de la création d'[inventaire] en fonction du Membre 	|OBLIGATOIRE 	  	 
-|[ ] |21 	|contextualisation de la création d'un [objet] en fonction de l'[inventaire] 	|OBLIGATOIRE |  	 |
-|[ ] |22 	|contextualisation de la création d'une [galerie] en fonction du membre 	|OPTIONNEL 	|  	 |
-|[ ] |23 	|affichage des seules galeries publiques 	|OPTIONNEL| 	  	 |
-|[ ] |24 	|contextualisation de l'ajout d'un [objet] à une [galerie] 	|OPTIONNEL| 	  	 |
-|[ ] |25 	|ajout des Utiisateurs au modèle de données et du lien utilisateur - membre 	|OBLIGATOIRE 	|TP 9 	 
-|[ ] |26 	|ajout de l'authentification 	|OBLIGATOIRE 	|TP 9 	 
-|[ ] |27 	|protection de l'accès aux routes interdites réservées aux membres 	|OPTIONNEL 	|TP 9 	 |
-|[ ] |28 	|protection de l'accès aux données à leurs seuls propriétaires 	|OPTIONNEL 	|TP 9 	 
-|[ ] |29 	|contextualisation du chargement des données en fonction de l'utilisateur connecté 	|OPTIONNEL |	  	 |
-|[ ] |30 	|Gestion de la suppression 	|OPTIONNEL 	|  	 |
+|[x] |19 	|consultation de la liste des seuls inventaires d'un membre dans le front-office| 	OBLIGATOIRE| 	|
+|[x] |20 	|contextualisation de la création d'[inventaire] en fonction du Membre 	|OBLIGATOIRE 	  	 
+|[x] |21 	|contextualisation de la création d'un [objet] en fonction de l'[inventaire] 	|OBLIGATOIRE |  	 |
+|[x] |22 	|contextualisation de la création d'une [galerie] en fonction du membre 	|OPTIONNEL 	|  	 |
+|[x] |23 	|affichage des seules galeries publiques 	|OPTIONNEL| 	  	 |
+|[x] |24 	|contextualisation de l'ajout d'un [objet] à une [galerie] 	|OPTIONNEL| 	  	 |
+|[x] |25 	|ajout des Utiisateurs au modèle de données et du lien utilisateur - membre 	|OBLIGATOIRE 	|TP 9 	 
+|[x] |26 	|ajout de l'authentification 	|OBLIGATOIRE 	|TP 9 	 
+|[x] |27 	|protection de l'accès aux routes interdites réservées aux membres 	|OPTIONNEL 	|TP 9 	 |
+|[x] |28 	|protection de l'accès aux données à leurs seuls propriétaires 	|OPTIONNEL 	|TP 9 	 
+|[x] |29 	|contextualisation du chargement des données en fonction de l'utilisateur connecté 	|OPTIONNEL |	  	 |
+|[x] |30 	|Gestion de la suppression 	|OPTIONNEL 	|  	 |
 |[ ] |31 	|ajout de la gestion de la mise en ligne d'images pour des photos dans les [objet] 	|OPTIONNEL 	| TP 8|
 |[ ] |32 	|utilisation des messages flash pour les CRUDs| 	OPTIONNEL|  |
 |[ ] |33 	|ajout d'une gestion de marque-pages/panier dans le front-office 	|OPTIONNEL 	|TP 9|
 
-
-## Current Advancement
-
-The front-office is currently working at a minimal state with no CSS, showing :
-- The list of HearthstoneCardbooks (individually clickable)
-- The details of one HearthstoneCardbook (name and owner member) with a back button
-
-The back office is fonctionnal and the database can be given new entries without much bugs.
-
-## Help to start the project
-
-- `symfony server:start` to start the server in the root , then connect to [localhost:8000/](localhost:8000/) in your navigator.
-- `symfony console debug:router` to see the available urls that work. I suggest you to begin with `/hearthstoneCardbook`
 
 
 # Links and useful resources

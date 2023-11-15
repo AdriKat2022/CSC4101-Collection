@@ -165,7 +165,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     {
         yield ['Murloc', 'A little creature that will fight to achieve what it wants.', 3, true, "The nature's defenders", ['Cool deck battle','Cooler deck battle'], 2,2] ;
         yield ['Bloodfen Raptor', 'A cool dinausor that will chase anything moving.', 8,  true, "The nature's defenders", ['Cooler deck battle','Insanity'] , 3, 4];
-        yield ['Dancing Potions', 'Heals 3 HP to all minions your side of the battlefield.', 8,  true, "The nature's defenders", ['Cool deck battle','Insanity'] , null, null];
+        yield ['Dancing Potions', 'Heals 3 HP to all minions your side of the battlefield.', 8,  false, "The nature's defenders", ['Cool deck battle','Insanity'] , null, null];
 
 
         yield ['The Church', "A magestic monument. Very sturdy, it won't croissant.", 4,  true, "The Holy Cards", ['Holy holy deck','Royalty deck'] , 0, 8];
