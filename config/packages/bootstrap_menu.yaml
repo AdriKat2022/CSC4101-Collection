@@ -2,6 +2,9 @@ bootstrap_menu:
   menus:
     main:
       items:
+        home:
+          label: 'Home'
+          route: 'homepage'
         decks:
           label: 'Browse decks'
           route: 'app_deck_index'

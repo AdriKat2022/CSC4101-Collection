@@ -19,6 +19,8 @@ class HthcardType extends AbstractType
             ->add('description')
             ->add('manacost')
             ->add('isminion')
+            ->add('atk')
+            ->add('hp')
         ;
     }
 

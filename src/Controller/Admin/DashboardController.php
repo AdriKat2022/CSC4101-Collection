@@ -25,6 +25,13 @@ class DashboardController extends AbstractDashboardController
         );
     }
 
+    #[Route('/mystery-page', name: 'easter', methods: ['GET'])]
+    public function indexRoll(){
+        return $this->render('egg.html.twig',
+            []
+        );
+    }
+
 
     #[Route('/admimdfldzlbicmpvb-control-check-pass', name: 'admin')]
     public function index(): Response
