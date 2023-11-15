@@ -5,16 +5,33 @@ The main goal is to train my skills with PHP by generating a solid database and 
 
 # Project description
 
+**If you want to skip to how start the project, go straight to the *Help to start the project***
+
+For proper display of the .MD markdown format, go to my [GitHub page](https://github.com/AdriKat2022/CSC4101-Collection).
+
+
 ## Main specifications
 
-As a web application, this project should include a login system so users can have their own book of cards. A HearthstoneCardbook should be owned by a user, but several users can own a same card. We just suppose it exists in as much copies it needs to satisfy everyone.
-Then, they will be able to share a part of their book to create decks for the public, so everyone, included unregistered users, can view them.
+As a web application, this project should include a login system so users can have their own book of cards. A HearthstoneCardbook should be owned by a member, and contains as many cards as the member wants.
+Member are able to share a selection of their cards (all Hearthstone Cardbooks included) to create decks. These may be published for the public (or not) by the owner member, so everyone including unregistered users, can view them.
 
 ## Current Advancement
 
+**You should be able to navigate and see ALL possible pages from the interface itself, without having to touch the URL.**
+
 Front office is fully active.
-- Login system is up and any existing member can log in to access their account. From there, members can create hearthstone cardbooks, decks and cards for their account.
+- Login system is up and any existing member can log in, browse decks and access their account. From there, members can create hearthstone cardbooks, decks and cards for their account.
 - Anonymous users can still look at public decks from other users and look at theirs associated cards. They can't create decks or any other type of entity.
+
+Back office is also fully active, not counting minor bugs (see section below). Only admin users can access it.
+- All entities are indexed and can be viewed.
+- There is a link that takes you back to the front-office to facilitate the website's use (no need to retype an url).
+
+### Known minor bugs
+
+- A new user can't register on this website as I did not tackle the register part of this project. New member accounts may be created with easy admin, but users (the logins associated with members, see the **Code names and entities** section below for further details) should be added within the fixtures of the project, which is absolutely not *production-environment friendly*.
+- When creating a card, the form will ask you for an attack and hp value even if the **isminion** property is turn off. In this case, whether you provide a value or not doesn't matter, as null values would replace them.
+- When editing certain entities with EasyAdmin, a weird symfony error might appear, altering the CSS of the page. Fortunately, this error doesn't seem to interfere with the edition of the database however (you can proceed as it weren't here).
 
 ## Collections used in the project
 
@@ -29,7 +46,7 @@ A hearthstone card is made from several components :
 - A type (spell or minion)   (bool)
 - An attack value (only if minion, interger)
 - A HP value (only if minion, interger)
-- A photo (optionnal) (file_link -> string)
+- A photo (not customisable) (file_link -> string)
 
 
 ### Code names and entities
@@ -55,8 +72,18 @@ So the differents entities are in order :
 ## Help to start the project
 
 - `symfony server:start` to start the server in the root file of this project, then connect to [localhost:8000/](localhost:8000/) in your navigator.
-- `symfony console debug:router` to see the available urls that work.
+- `symfony console debug:router` to see the available urls that work (not recommended for the experience)
 
+### User list to try
+
+|Member|Username|Password|
+|---|---|
+| Adrien| adrikat | mouhahaphp |
+| Alice |alice | alice |
+| The Lich King |the_lich | fruit |
+| Anduin | anduin | anduin |
+| Malfurion | malfurion | malfurion |
+| Shy guy | [noUser] | [noUser] |
 
 
 # TODO
