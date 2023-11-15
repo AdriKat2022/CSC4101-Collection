@@ -25,10 +25,10 @@
                 <div class="card-body" style="background-image: url('{{ asset("img/deck_background_test.png") }}'); background-size: cover; background-position-y: 40%;">
                     <h4 class="card-title">{{ deck.name }}</h4>
                     <p class="card-text">{{ deck.name }}</p>
-                    <a href="{{ path('app_deck_show', {'id' : deck.id}) }}" class="btn btn-primary">Open deck</a>
+                    <a href="{{ path('app_deck_show', {'id' : deck.id }) }}" class="btn btn-primary">Open deck <span class="badge rounded-pill bg-secondary">{{deck.cards.count}} cards</span></a>
                 </div>
                 <div class="card-footer">
-                    <p class="card-text">by <strong>{{ deck.member }} {% if app.user != null and deck.member == app.user.member %}(You){% endif %}</strong></p>
+                    <p class="card-text">by <strong>{{ deck.member }} {% if app.user != null and deck.member == app.user.member %}<span class="badge rounded-pill bg-danger">You</span>{% endif %}</strong></p>
                 </div>
             </div>
         </div>

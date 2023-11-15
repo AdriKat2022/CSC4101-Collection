@@ -56,11 +56,11 @@
                                     </li>
                                     <li class="nav-item"><a class="nav-link">Connected as {{app.user.member.nom}} - {{app.user.username}}</a></li>
                                 </ul>
-                                <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connected as user">
+                                <a class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connected as user">
                                     <img src="{{ asset('img/connected_check_green.png') }}" alt="Checkmark" style="width:40px; opacity: 0.6" class="rounded-pill">
                                 </a>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connected as ADMIN">
+                                <a class="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connected as ADMIN">
                                     <img src="{{ asset('img/connected_check_admin_orange.png') }}" alt="Checkmark" style="width:40px; opacity: 1;" class="rounded-pill">
                                 </a>
                                 {% endif %}
