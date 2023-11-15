@@ -33,6 +33,12 @@ class Hthcard
     #[ORM\ManyToMany(mappedBy: 'cards', targetEntity: Deck::class)]
     private Collection $decks;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $atk = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $hp = null;
+
     public function __construct()
     {
         $this->decks = new ArrayCollection();
@@ -131,6 +137,30 @@ class Hthcard
         if ($this->decks->removeElement($deck)) {
             $deck->removeCard($this);
         }
+
+        return $this;
+    }
+
+    public function getAtk(): ?int
+    {
+        return $this->atk;
+    }
+
+    public function setAtk(?int $atk): static
+    {
+        $this->atk = $atk;
+
+        return $this;
+    }
+
+    public function getHp(): ?int
+    {
+        return $this->hp;
+    }
+
+    public function setHp(?int $hp): static
+    {
+        $this->hp = $hp;
 
         return $this;
     }

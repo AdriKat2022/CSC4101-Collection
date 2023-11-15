@@ -20,7 +20,11 @@
         <tbody>
             <tr>
             <td>Card type:</td>
-            <td class="table-info">{% if hthcard.Isminion %}Minion{% else %}Spell{% endif %}</td>
+            {% if hthcard.Isminion %}
+            <td class="table-primary">Minion</td>
+            {% else %}
+            <td class="table-success">Spell</td>
+            {% endif %}
             </tr>
 
             <tr>
@@ -33,9 +37,23 @@
             <td class="table-danger">{{ hthcard.Manacost }}</td>
             </tr>
 
+            {% if hthcard.Isminion %}
+
+            <tr>
+            <td>Attack points :</td>
+            <td class="table-secondary">{{ hthcard.Atk }}</td>
+            </tr>
+
+            <tr>
+            <td>Health points :</td>
+            <td class="table-secondary">{{ hthcard.Hp }}</td>
+            </tr>
+
+            {% endif %}
+
             <tr>
             <td>Origin :</td>
-            <td><strong>{{ hthcard.HearthstoneCardbook }}</strong> by <strong>{{ hthcard.HearthstoneCardbook.Member }}</strong></td>
+            <td class="table-dark"><strong>{{ hthcard.HearthstoneCardbook }}</strong> by <strong>{{ hthcard.HearthstoneCardbook.Member }}</strong></td>
             </tr>
         </tbody>
     </table>
